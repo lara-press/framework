@@ -45,9 +45,13 @@ class BootstrapWordpress
      */
     protected function setDefaultPermalinkStructure(Application $app)
     {
-        if ($app['wp_rewrite']->permalink_structure !== '/%postname%/') {
-            $app['wp_rewrite']->set_permalink_structure('/%postname%/');
-        }
+        actions()->listen(
+            'wp_install',
+            function () use ($app) {
+                $app['wp_rewrite']->set_permalink_structure('/%postname%/');
+                $app['wp_rewrite']->flush_rules(true);
+            }
+        );
     }
 
     /**

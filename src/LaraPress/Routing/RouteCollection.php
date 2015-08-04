@@ -16,13 +16,18 @@ class RouteCollection extends \Illuminate\Routing\RouteCollection
      */
     public function match(Request $request)
     {
+        $hasWpParams = $request->path() == '/' && ($request->has('p') || $request->has('post_id'));
+
+        if ($hasWpParams && $route = $this->findMatchingWordpressPost($request)) {
+            return $route;
+        }
+
         try {
             return parent::match($request);
         } catch (NotFoundHttpException $e) {
-            $route = $this->findMatchingWordpressPost();
 
-            if ( ! is_null($route)) {
-                return $route->bind($request);
+            if ($route = $this->findMatchingWordpressPost($request)) {
+                return $route;
             }
 
             throw $e;
@@ -30,12 +35,18 @@ class RouteCollection extends \Illuminate\Routing\RouteCollection
     }
 
     /**
+     * @param Request $request
+     *
      * @return \Illuminate\Routing\Route|null
      */
-    protected function findMatchingWordpressPost()
+    protected function findMatchingWordpressPost(Request $request)
     {
         if ( ! is_404()) {
-            return $this->getByName('__catch_' . str_replace('\\', '.', get_class(app('post'))));
+            $route = $this->getByName('__catch_' . str_replace('\\', '.', get_class(app('post'))));
+
+            if ( ! is_null($route)) {
+                return $route->bind($request);
+            }
         }
 
         return null;

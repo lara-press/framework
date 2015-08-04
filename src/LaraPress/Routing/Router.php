@@ -59,7 +59,7 @@ class Router extends RouterBase
         return parent::addRoute($methods, $uri, $action);
     }
 
-    public function arrest($postType, $action)
+    public function handle($postType, $action)
     {
         $postType = '__catch_' . str_replace('\\', '.', $postType);
 

@@ -1,7 +1,6 @@
 <?php
 
-if ( ! function_exists('larapress_get_the_query'))
-{
+if ( ! function_exists('larapress_get_the_query')) {
     /**
      * Return the WP Query variable.
      *
@@ -15,8 +14,7 @@ if ( ! function_exists('larapress_get_the_query'))
     }
 }
 
-if ( ! function_exists('larapress_use_permalink'))
-{
+if ( ! function_exists('larapress_use_permalink')) {
     /**
      * Conditional function that checks if WP
      * is using a pretty permalink structure.
@@ -27,39 +25,43 @@ if ( ! function_exists('larapress_use_permalink'))
     {
         global $wp_rewrite;
 
-        if ( ! $wp_rewrite->permalink_structure == '')
-        {
-            return true;
-        }
-
-        return false;
+        return ! empty($wp_rewrite->permalink_structure);
     }
 }
 
-if ( ! function_exists('larapress_add_filters'))
-{
-    /**
-     * Helper that runs multiple add_filter
-     * functions at once.
-     *
-     * @param array  $tags     Filter tags.
-     * @param string $function The name of the global function to call.
-     *
-     * @return void
-     */
-    function larapress_add_filters(array $tags, $function)
-    {
-        foreach ($tags as $tag)
-        {
-            add_filter($tag, $function);
-        }
-    }
-}
-
-if ( ! function_exists('larapress_assets'))
-{
+if ( ! function_exists('larapress_assets')) {
     function larapress_assets($path = '')
     {
         return get_template_directory_uri() . '/assets' . ($path ? '/' . $path : $path);
+    }
+}
+
+if ( ! function_exists('post')) {
+    /**
+     * @return \LaraPress\Posts\Model
+     */
+    function post()
+    {
+        return app('post');
+    }
+}
+
+if ( ! function_exists('actions')) {
+    /**
+     * @return \LaraPress\Actions\Dispatcher
+     */
+    function actions()
+    {
+        return app('actions');
+    }
+}
+
+if ( ! function_exists('filters')) {
+    /**
+     * @return \LaraPress\Filters\Dispatcher
+     */
+    function filters()
+    {
+        return app('filters');
     }
 }
