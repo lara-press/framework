@@ -1,5 +1,5 @@
 {
-    "name": "portonefive/larapress-framework",
+    "name": "lara-press/framework",
     "description": "The LaraPress framework.",
     "keywords": [
         "larapress",
@@ -13,7 +13,12 @@
         {
             "name": "Jeff Berry",
             "email": "jeff@portonefive.com",
-            "homepage": "http://portonefive.com"
+            "homepage": "http://lara.press"
+        },
+                {
+            "name": "Nick Hough",
+            "email": "nick@portonefive.com",
+            "homepage": "http://lara.press"
         }
     ],
     "require": {
