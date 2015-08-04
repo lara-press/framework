@@ -1,0 +1,8 @@
+# Miscellaneous
+.DS_Store
+Thumbs.db
+.idea/
+
+# Framework
+vendor/
+composer.lock
