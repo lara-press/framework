@@ -5,8 +5,6 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 
 class Model extends Eloquent {
 
-    protected $table = 'wp_posts';
-
     protected $primaryKey = 'ID';
 
     protected $with = ['meta'];
@@ -23,6 +21,12 @@ class Model extends Eloquent {
 
         self::addGlobalScope(new PostTypeScope());
         self::addGlobalScope(new PublishedScope());
+    }
+
+
+    public function getTable()
+    {
+        return DB_TABLE_PREFIX . 'posts';
     }
 
     public static function resolveWordpressPostToModel(\WP_Post $post)

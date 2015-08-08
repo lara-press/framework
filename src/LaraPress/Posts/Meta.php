@@ -6,9 +6,12 @@ class Meta extends Eloquent {
 
     public $timestamps = false;
 
-    protected $table = 'wp_postmeta';
-
     protected $guarded = [];
+
+    public function getTable()
+    {
+        return DB_TABLE_PREFIX . 'postmeta';
+    }
 
     public function getValue()
     {

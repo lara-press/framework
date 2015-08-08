@@ -2,9 +2,13 @@
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
-class Term extends Eloquent {
+class Term extends Eloquent
+{
 
     protected $primaryKey = 'term_id';
 
-    protected $table = 'wp_terms';
+    public function getTable()
+    {
+        return DB_TABLE_PREFIX . 'terms';
+    }
 }

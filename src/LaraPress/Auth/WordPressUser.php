@@ -1,22 +1,16 @@
 <?php namespace LaraPress\Auth;
 
 use Illuminate\Auth\Authenticatable;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Database\Eloquent\Model;
 
-class WordPressUser extends Model implements AuthenticatableContract, CanResetPasswordContract {
+class WordPressUser extends Model implements AuthenticatableContract, CanResetPasswordContract
+{
 
     use Authenticatable;
 
     public $timestamps = false;
-
-    /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
-    protected $table = 'wp_users';
 
     /**
      * The attributes that are mass assignable.
@@ -31,6 +25,11 @@ class WordPressUser extends Model implements AuthenticatableContract, CanResetPa
      * @var array
      */
     protected $hidden = ['user_pass', 'remember_token'];
+
+    public function getTable()
+    {
+        return DB_TABLE_PREFIX . 'users';
+    }
 
     /**
      * @param $capability
@@ -73,8 +72,7 @@ class WordPressUser extends Model implements AuthenticatableContract, CanResetPa
     {
         $attributes = array_merge($attributes, ['ID' => $this->ID]);
 
-        if (is_wp_error(wp_update_user($attributes)))
-        {
+        if (is_wp_error(wp_update_user($attributes))) {
             return false;
         }
 
