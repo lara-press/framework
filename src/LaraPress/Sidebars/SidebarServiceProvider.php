@@ -5,7 +5,7 @@ use Illuminate\Support\ServiceProvider;
 class SidebarServiceProvider extends ServiceProvider {
 
     /**
-     * An array of sidebars to be loaded as Wordpress sidebars.
+     * An array of sidebars to be loaded as WordPress sidebars.
      *
      * @see LaraPress\Sidebars\SidebarServiceProvider for proper structure
      *

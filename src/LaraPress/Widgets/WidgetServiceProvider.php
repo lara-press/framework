@@ -5,7 +5,7 @@ use Illuminate\Support\ServiceProvider;
 class WidgetServiceProvider extends ServiceProvider {
 
     /**
-     * An array of class names to be registered as Wordpress widgets.
+     * An array of class names to be registered as WordPress widgets.
      *
      * @var array
      */

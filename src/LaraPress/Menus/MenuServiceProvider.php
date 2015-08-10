@@ -5,7 +5,7 @@ use Illuminate\Support\ServiceProvider;
 class MenuServiceProvider extends ServiceProvider {
 
     /**
-     * An array of "id => title" pairs to be registered as Wordpress menus.
+     * An array of "id => title" pairs to be registered as WordPress menus.
      *
      * @var array
      */
