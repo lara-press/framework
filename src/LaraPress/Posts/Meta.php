@@ -22,4 +22,9 @@ class Meta extends Eloquent {
     {
         return $this->attributes['meta_key'];
     }
+
+    public function post()
+    {
+        return $this->belongsTo('App\Post', DB_TABLE_PREFIX . 'postmeta', 'post_id', 'meta_id');
+    }
 }

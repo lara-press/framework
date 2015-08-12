@@ -3,7 +3,8 @@
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
-class Model extends Eloquent {
+class Model extends Eloquent
+{
 
     protected $primaryKey = 'ID';
 
@@ -60,7 +61,7 @@ class Model extends Eloquent {
      */
     public function terms()
     {
-        return $this->belongsToMany('LaraPress\Posts\Term', 'wp_term_relationships', 'object_id', 'term_taxonomy_id');
+        return $this->belongsToMany('LaraPress\Posts\Term', DB_TABLE_PREFIX . 'term_relationships', 'object_id', 'term_taxonomy_id');
     }
 
     /**
