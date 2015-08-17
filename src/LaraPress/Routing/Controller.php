@@ -1,26 +1,26 @@
 <?php namespace LaraPress\Routing;
 
 use Illuminate\Routing\Controller as BaseController;
-use LaraPress\Posts\Model;
+use LaraPress\Posts\Post;
 use LaraPress\Posts\Query;
 
 class Controller extends BaseController {
-    /** @var Model */
+    /** @var Post */
     protected $post;
 
     /** @var Query */
     protected $query;
 
     /**
-     * @param Model $post
+     * @param Post $post
      */
-    public function setPost(Model $post)
+    public function setPost(Post $post)
     {
         $this->post = $post;
     }
 
     /**
-     * @return Model
+     * @return Post
      */
     public function getPost()
     {

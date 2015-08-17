@@ -1,5 +1,5 @@
 <?php namespace LaraPress\Posts;
 
-class Page extends Model {
+class Page extends Post {
 
 }

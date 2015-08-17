@@ -1,10 +1,7 @@
 <?php namespace LaraPress\Routing;
 
-use App\Post;
 use Illuminate\Routing\ControllerDispatcher as BaseControllerDispatcher;
 use LaraPress\Admin\AdminPageController;
-use LaraPress\Posts\Model;
-use LaraPress\Posts\Query;
 
 class ControllerDispatcher extends BaseControllerDispatcher {
 

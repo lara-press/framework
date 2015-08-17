@@ -1,4 +1,4 @@
-<?php namespace LaraPress\Posts;
+<?php namespace LaraPress\Auth;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
@@ -7,13 +7,13 @@ class Meta extends Eloquent
 
     public $timestamps = false;
 
-    protected $primaryKey = 'meta_id';
+    protected $primaryKey = 'umeta_id';
 
     protected $guarded = [];
 
     public function getTable()
     {
-        return DB_TABLE_PREFIX . 'postmeta';
+        return DB_TABLE_PREFIX . 'usermeta';
     }
 
     public function getValue()
@@ -26,8 +26,8 @@ class Meta extends Eloquent
         return $this->attributes['meta_key'];
     }
 
-    public function post()
+    public function user()
     {
-        return $this->belongsTo(Post::class, DB_TABLE_PREFIX . 'postmeta', 'post_id', 'meta_id');
+        return $this->belongsTo(config('auth.model'), DB_TABLE_PREFIX . 'usermeta', 'post_id', 'meta_id');
     }
 }

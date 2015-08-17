@@ -5,12 +5,13 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Database\Eloquent\Model;
 
-class WordPressUser extends Model implements AuthenticatableContract, CanResetPasswordContract
+class User extends Model implements AuthenticatableContract, CanResetPasswordContract
 {
 
     use Authenticatable;
 
     public $timestamps = false;
+    protected $primaryKey = 'ID';
 
     /**
      * The attributes that are mass assignable.
@@ -66,7 +67,7 @@ class WordPressUser extends Model implements AuthenticatableContract, CanResetPa
      *
      * @param array $attributes
      *
-     * @return \LaraPress\User\User|\WP_Error
+     * @return bool|int
      */
     public function update(array $attributes = [])
     {

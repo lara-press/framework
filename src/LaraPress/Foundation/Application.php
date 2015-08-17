@@ -45,7 +45,7 @@ class Application extends BaseApplication {
             'posts'       => ['LaraPress\Posts\PostRepository', 'LaraPress\Contracts\Posts\PostRepository'],
             'posts.types' => ['LaraPress\Posts\PostTypeManager', 'LaraPress\Contracts\Posts\PostTypeManager'],
             //'sections'     => 'LaraPress\Page\Sections\SectionBuilder',
-            'taxonomy'    => 'LaraPress\Taxonomy\Manager',
+            'taxonomy'    => 'LaraPress\Posts\Manager',
         ];
 
         foreach ($aliases as $key => $aliases)

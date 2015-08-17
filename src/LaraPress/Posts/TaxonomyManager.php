@@ -1,8 +1,8 @@
-<?php namespace LaraPress\Taxonomy;
+<?php namespace LaraPress\Posts;
 
 use LaraPress\Actions\Dispatcher;
 
-class Manager {
+class TaxonomyManager {
 
     /**
      * @var Dispatcher

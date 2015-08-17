@@ -11,7 +11,7 @@ class Loop extends Collection {
 
         foreach ($items as $item)
         {
-            $posts[] = Model::resolveWordpressPostToModel($item);
+            $posts[] = Post::resolveWordPressPostToModel($item);
         }
 
         parent::__construct($posts);

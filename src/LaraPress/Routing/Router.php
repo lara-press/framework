@@ -40,7 +40,7 @@ class Router extends RouterBase
     public function page($slug, $action)
     {
         $route = $this->addRoute('GET', $slug, $action);
-        $route->setWordpressConditional('is_page');
+        $route->setWordPressConditional('is_page');
 
         return $route;
     }

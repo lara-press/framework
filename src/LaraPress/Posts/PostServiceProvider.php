@@ -13,7 +13,7 @@ class PostServiceProvider extends ServiceProvider {
     {
         $this->app['actions']->listen('wp', function()
         {
-            if (get_post() !== null && $post = Model::resolveWordpressPostToModel(get_post()))
+            if (get_post() !== null && $post = Post::resolveWordPressPostToModel(get_post()))
             {
                 $this->app->instance('post', $post);
             }
@@ -31,7 +31,7 @@ class PostServiceProvider extends ServiceProvider {
             'wp',
             function ()
             {
-                $this->app->instance('query', $query = Query::newInstanceFromWordpressQuery($GLOBALS['wp_query']));
+                $this->app->instance('query', $query = Query::newInstanceFromWordPressQuery($GLOBALS['wp_query']));
                 $this->app->instance('loop', new Loop($query->get_posts()));
             }
         );

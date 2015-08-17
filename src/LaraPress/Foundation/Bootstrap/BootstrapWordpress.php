@@ -3,7 +3,7 @@
 use Illuminate\Contracts\Foundation\Application;
 use LaraPress\Routing\Router;
 
-class BootstrapWordpress
+class BootstrapWordPress
 {
 
     protected $extract = ['wp', 'wp_rewrite', 'wp_the_query', 'wp_query', 'wp_widget_factory', 'wp_roles'];
@@ -21,7 +21,7 @@ class BootstrapWordpress
             'init',
             function () use ($app) {
 
-                $this->extractWordpressClasses($app);
+                $this->extractWordPressClasses($app);
 
                 $this->setDefaultPermalinkStructure($app);
 
@@ -33,7 +33,7 @@ class BootstrapWordpress
     /**
      * @param Application $app
      */
-    protected function extractWordpressClasses(Application $app)
+    protected function extractWordPressClasses(Application $app)
     {
         foreach ($this->extract as $extractedClass) {
             $app->instance($extractedClass, $GLOBALS[$extractedClass]);

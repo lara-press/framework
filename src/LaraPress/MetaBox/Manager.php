@@ -2,7 +2,7 @@
 
 use Illuminate\Contracts\Foundation\Application;
 use LaraPress\Actions\Dispatcher;
-use LaraPress\Posts\Model;
+use LaraPress\Posts\Post;
 
 class Manager {
 
@@ -53,7 +53,7 @@ class Manager {
                     $metaBox->getTitle(),
                     function () use ($container, $metaBox)
                     {
-                        $post = Model::resolveWordpressPostToModel(get_post());
+                        $post = Post::resolveWordPressPostToModel(get_post());
                         echo $container->call($metaBox->getOutputHandler(), ['post' => $post] + func_get_args());
                     },
                     $metaBox->getPostType(),
@@ -74,7 +74,7 @@ class Manager {
                         return;
                     }
 
-                    $post = Model::resolveWordpressPostToModel($post);
+                    $post = Post::resolveWordPressPostToModel($post);
 
                     $container->call($metaBox->getInputHandler(), compact('metaBox', 'postId', 'post', 'isUpdate'));
                 },

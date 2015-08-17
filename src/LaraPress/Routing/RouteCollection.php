@@ -18,7 +18,7 @@ class RouteCollection extends \Illuminate\Routing\RouteCollection
     {
         $hasWpParams = $request->path() == '/' && ($request->has('p') || $request->has('post_id'));
 
-        if ($hasWpParams && $route = $this->findMatchingWordpressPost($request)) {
+        if ($hasWpParams && $route = $this->findMatchingWordPressPost($request)) {
             return $route;
         }
 
@@ -26,7 +26,7 @@ class RouteCollection extends \Illuminate\Routing\RouteCollection
             return parent::match($request);
         } catch (NotFoundHttpException $e) {
 
-            if ($route = $this->findMatchingWordpressPost($request)) {
+            if ($route = $this->findMatchingWordPressPost($request)) {
                 return $route;
             }
 
@@ -39,7 +39,7 @@ class RouteCollection extends \Illuminate\Routing\RouteCollection
      *
      * @return \Illuminate\Routing\Route|null
      */
-    protected function findMatchingWordpressPost(Request $request)
+    protected function findMatchingWordPressPost(Request $request)
     {
         if ( ! is_404()) {
             $route = $this->getByName('__catch_' . str_replace('\\', '.', get_class(app('post'))));

@@ -6,7 +6,7 @@ use LaraPress\Contracts\Posts\PostTypeManager as PostTypeManagerContract;
 
 class PostTypeManager implements PostTypeManagerContract {
 
-    /** @var Model[] */
+    /** @var Post[] */
     protected $postTypes = [];
 
     /**
@@ -50,7 +50,7 @@ class PostTypeManager implements PostTypeManagerContract {
         return $this->postTypes;
     }
 
-    protected function makeCustomPostType(Model $model)
+    protected function makeCustomPostType(Post $model)
     {
         $postTypeSlug = strtolower(snake_case(class_basename($model)));
 

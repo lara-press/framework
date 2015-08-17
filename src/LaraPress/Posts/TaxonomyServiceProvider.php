@@ -1,4 +1,4 @@
-<?php namespace LaraPress\Taxonomy;
+<?php namespace LaraPress\Posts;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -10,7 +10,7 @@ class TaxonomyServiceProvider extends ServiceProvider {
             'taxonomy',
             function ($app)
             {
-                return new Manager($app['actions']);
+                return new TaxonomyManager($app['actions']);
             }
         );
     }

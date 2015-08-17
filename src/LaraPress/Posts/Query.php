@@ -7,7 +7,7 @@ class Query extends \WP_Query
      *
      * @return static
      */
-    public static function newInstanceFromWordpressQuery(\WP_Query $query)
+    public static function newInstanceFromWordPressQuery(\WP_Query $query)
     {
         $newQuery = new static;
 

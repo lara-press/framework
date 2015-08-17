@@ -11,4 +11,10 @@ class Term extends Eloquent
     {
         return DB_TABLE_PREFIX . 'terms';
     }
+
+    public function taxonomies()
+    {
+        return $this->belongsToMany(TermTaxonomy::class, 'term_id')
+                    ->withPivot('description', 'parent', 'count');
+    }
 }

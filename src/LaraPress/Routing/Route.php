@@ -95,7 +95,7 @@ class Route extends RouteBase {
         ];
     }
 
-    public function setWordpressConditional($conditional)
+    public function setWordPressConditional($conditional)
     {
         $this->wordpressConditional = $conditional;
     }

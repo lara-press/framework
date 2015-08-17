@@ -1,5 +1,7 @@
 <?php
 
+use LaraPress\Options\OptionManager;
+
 if ( ! function_exists('larapress_get_the_query')) {
     /**
      * Return the WP Query variable.
@@ -38,7 +40,7 @@ if ( ! function_exists('larapress_assets')) {
 
 if ( ! function_exists('post')) {
     /**
-     * @return \LaraPress\Posts\Model
+     * @return \LaraPress\Posts\Post
      */
     function post()
     {
@@ -63,5 +65,18 @@ if ( ! function_exists('filters')) {
     function filters()
     {
         return app('filters');
+    }
+}
+
+if ( ! function_exists('options')) {
+    /**
+     * @param null $key
+     * @param null $default
+     *
+     * @return OptionManager|mixed
+     */
+    function options($key = null, $default = null)
+    {
+        return empty($key) ? app('options') : app('options')->get($key, $default);
     }
 }
