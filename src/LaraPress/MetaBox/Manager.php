@@ -1,4 +1,6 @@
-<?php namespace LaraPress\MetaBox;
+<?php
+
+namespace LaraPress\MetaBox;
 
 use Illuminate\Contracts\Foundation\Application;
 use LaraPress\Actions\Dispatcher;
@@ -66,10 +68,10 @@ class Manager {
         if (is_callable($metaBox->getInputHandler()))
         {
             $this->actions->listen(
-                'save_post_page',
+                'save_post',
                 function ($postId, $post, $isUpdate) use ($metaBox, $container)
                 {
-                    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
+                    if ($post->post_type !== $metaBox->getPostType() || defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
                     {
                         return;
                     }

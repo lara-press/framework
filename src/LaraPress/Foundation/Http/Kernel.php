@@ -1,4 +1,6 @@
-<?php namespace LaraPress\Foundation\Http;
+<?php
+
+namespace LaraPress\Foundation\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Illuminate\Pipeline\Pipeline;

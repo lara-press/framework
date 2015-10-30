@@ -1,5 +1,8 @@
-<?php namespace LaraPress\Actions;
+<?php
 
+namespace LaraPress\Actions;
+
+use Illuminate\Contracts\Queue\Queue;
 use Illuminate\Support\ServiceProvider;
 
 class ActionServiceProvider extends ServiceProvider {
@@ -18,7 +21,7 @@ class ActionServiceProvider extends ServiceProvider {
                 return (new Dispatcher($app))->setQueueResolver(
                     function () use ($app)
                     {
-                        return $app->make('Illuminate\Contracts\Queue\Queue');
+                        return $app->make(Queue::class);
                     }
                 );
             }

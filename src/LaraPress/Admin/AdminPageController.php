@@ -1,4 +1,6 @@
-<?php namespace LaraPress\Admin;
+<?php
+
+namespace LaraPress\Admin;
 
 use Illuminate\Contracts\View\View;
 use Illuminate\Routing\Controller;

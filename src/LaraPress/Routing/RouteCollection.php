@@ -1,4 +1,6 @@
-<?php namespace LaraPress\Routing;
+<?php
+
+namespace LaraPress\Routing;
 
 use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;

@@ -1,4 +1,6 @@
-<?php namespace LaraPress\Routing;
+<?php
+
+namespace LaraPress\Routing;
 
 use Illuminate\Routing\ControllerDispatcher as BaseControllerDispatcher;
 use LaraPress\Admin\AdminPageController;

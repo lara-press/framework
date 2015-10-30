@@ -1,4 +1,6 @@
-<?php namespace LaraPress\Posts;
+<?php
+
+namespace LaraPress\Posts;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model as Eloquent;

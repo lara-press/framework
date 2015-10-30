@@ -1,4 +1,6 @@
-<?php namespace LaraPress\Assets;
+<?php
+
+namespace LaraPress\Assets;
 
 use Illuminate\Filesystem\Filesystem;
 use LaraPress\Actions\Dispatcher;

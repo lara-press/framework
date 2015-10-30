@@ -1,4 +1,6 @@
-<?php namespace LaraPress\Support\Facades;
+<?php
+
+namespace LaraPress\Support\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

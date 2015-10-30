@@ -1,4 +1,6 @@
-<?php namespace LaraPress\Actions;
+<?php
+
+namespace LaraPress\Actions;
 
 use Illuminate\Events\Dispatcher as EventsDispatcher;
 

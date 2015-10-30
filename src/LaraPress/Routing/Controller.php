@@ -1,4 +1,6 @@
-<?php namespace LaraPress\Routing;
+<?php
+
+namespace LaraPress\Routing;
 
 use Illuminate\Routing\Controller as BaseController;
 use LaraPress\Posts\Post;

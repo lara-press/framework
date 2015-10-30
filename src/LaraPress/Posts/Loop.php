@@ -1,4 +1,5 @@
 <?php
+
 namespace LaraPress\Posts;
 
 use Illuminate\Database\Eloquent\Collection;

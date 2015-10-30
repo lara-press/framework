@@ -1,4 +1,6 @@
-<?php namespace LaraPress\Html;
+<?php
+
+namespace LaraPress\Html;
 
 use Illuminate\Html\HtmlServiceProvider as BaseHtmlServiceProvider;
 

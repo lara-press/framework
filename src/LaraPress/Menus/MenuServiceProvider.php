@@ -1,4 +1,6 @@
-<?php namespace LaraPress\Menus;
+<?php
+
+namespace LaraPress\Menus;
 
 use Illuminate\Support\ServiceProvider;
 

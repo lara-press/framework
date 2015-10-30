@@ -1,4 +1,6 @@
-<?php namespace LaraPress\Foundation\Providers;
+<?php
+
+namespace LaraPress\Foundation\Providers;
 
 use Illuminate\Support\ServiceProvider;
 

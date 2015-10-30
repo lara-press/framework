@@ -1,4 +1,6 @@
-<?php namespace LaraPress\Assets;
+<?php
+
+namespace LaraPress\Assets;
 
 use Illuminate\Support\ServiceProvider;
 

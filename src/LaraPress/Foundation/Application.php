@@ -1,4 +1,5 @@
 <?php
+
 namespace LaraPress\Foundation;
 
 use Illuminate\Events\EventServiceProvider;

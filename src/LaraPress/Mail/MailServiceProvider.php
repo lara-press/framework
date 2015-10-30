@@ -1,4 +1,6 @@
-<?php namespace LaraPress\Mail;
+<?php
+
+namespace LaraPress\Mail;
 
 use Illuminate\Support\ServiceProvider;
 

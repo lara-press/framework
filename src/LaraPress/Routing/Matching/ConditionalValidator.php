@@ -1,4 +1,6 @@
-<?php namespace LaraPress\Routing\Matching;
+<?php
+
+namespace LaraPress\Routing\Matching;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Matching\ValidatorInterface;

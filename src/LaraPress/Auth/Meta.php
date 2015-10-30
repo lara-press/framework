@@ -1,4 +1,6 @@
-<?php namespace LaraPress\Auth;
+<?php
+
+namespace LaraPress\Auth;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
 

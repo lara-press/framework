@@ -1,4 +1,6 @@
-<?php namespace LaraPress\Auth;
+<?php
+
+namespace LaraPress\Auth;
 
 use Illuminate\Auth\EloquentUserProvider;
 use Illuminate\Contracts\Auth\Authenticatable as UserContract;

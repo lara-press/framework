@@ -1,4 +1,6 @@
-<?php namespace LaraPress\Posts;
+<?php
+
+namespace LaraPress\Posts;
 
 use LaraPress\Actions\Dispatcher;
 use LaraPress\Contracts\Posts\CustomPostType;

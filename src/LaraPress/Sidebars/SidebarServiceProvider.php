@@ -1,4 +1,6 @@
-<?php namespace LaraPress\Sidebars;
+<?php
+
+namespace LaraPress\Sidebars;
 
 use Illuminate\Support\ServiceProvider;
 

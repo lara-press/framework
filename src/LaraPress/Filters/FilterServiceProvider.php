@@ -1,4 +1,6 @@
-<?php namespace LaraPress\Filters;
+<?php
+
+namespace LaraPress\Filters;
 
 use Illuminate\Support\ServiceProvider;
 

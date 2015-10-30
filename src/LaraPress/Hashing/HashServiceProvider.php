@@ -1,4 +1,6 @@
-<?php namespace LaraPress\Hashing;
+<?php
+
+namespace LaraPress\Hashing;
 
 use Illuminate\Support\ServiceProvider;
 

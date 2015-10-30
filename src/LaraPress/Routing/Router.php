@@ -1,4 +1,6 @@
-<?php namespace LaraPress\Routing;
+<?php
+
+namespace LaraPress\Routing;
 
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Events\Dispatcher;

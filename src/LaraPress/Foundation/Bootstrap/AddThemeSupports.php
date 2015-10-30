@@ -1,4 +1,6 @@
-<?php namespace LaraPress\Foundation\Bootstrap;
+<?php
+
+namespace LaraPress\Foundation\Bootstrap;
 
 use Illuminate\Contracts\Foundation\Application;
 

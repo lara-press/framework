@@ -1,4 +1,6 @@
-<?php namespace LaraPress\View\Compilers;
+<?php
+
+namespace LaraPress\View\Compilers;
 
 use Illuminate\View\Compilers\BladeCompiler as BaseBladeCompiler;
 

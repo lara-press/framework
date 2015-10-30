@@ -1,4 +1,6 @@
-<?php namespace LaraPress\Contracts\Posts;
+<?php
+
+namespace LaraPress\Contracts\Posts;
 
 interface Repository {
 

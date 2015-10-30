@@ -1,4 +1,6 @@
-<?php namespace LaraPress\MetaBox;
+<?php
+
+namespace LaraPress\MetaBox;
 
 use Closure;
 

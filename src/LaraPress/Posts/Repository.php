@@ -1,4 +1,6 @@
-<?php namespace LaraPress\Posts;
+<?php
+
+namespace LaraPress\Posts;
 
 use App\Post;
 use LaraPress\Contracts\Posts\Repository as RepositoryContract;

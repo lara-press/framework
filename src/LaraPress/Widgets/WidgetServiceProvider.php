@@ -1,4 +1,6 @@
-<?php namespace LaraPress\Widgets;
+<?php
+
+namespace LaraPress\Widgets;
 
 use Illuminate\Support\ServiceProvider;
 

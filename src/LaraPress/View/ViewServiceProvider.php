@@ -1,4 +1,6 @@
-<?php namespace LaraPress\View;
+<?php
+
+namespace LaraPress\View;
 
 use Illuminate\View\Engines\CompilerEngine;
 use Illuminate\View\ViewServiceProvider as BaseViewServiceProvider;
