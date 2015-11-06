@@ -2,7 +2,7 @@
 
 namespace LaraPress\Html;
 
-use Illuminate\Html\HtmlServiceProvider as BaseHtmlServiceProvider;
+use Collective\Html\HtmlServiceProvider as BaseHtmlServiceProvider;
 
 class HtmlServiceProvider extends BaseHtmlServiceProvider {
 
