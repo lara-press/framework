@@ -25,7 +25,8 @@
         "php": ">=5.4",
         "composer/installers": "~1.0",
         "laravel/framework": "5.1.*@dev",
-        "guzzlehttp/guzzle" : "~5.0"
+        "guzzlehttp/guzzle" : "~5.0",
+        "laravelcollective/html": "5.1.*"
     },
     "autoload": {
         "files": [
