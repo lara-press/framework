@@ -1,4 +1,6 @@
-<?php namespace LaraPress\Posts;
+<?php
+
+namespace LaraPress\Posts;
 
 use App\Product;
 use DB;
