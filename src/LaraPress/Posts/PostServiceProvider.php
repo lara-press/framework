@@ -24,7 +24,6 @@ class PostServiceProvider extends ServiceProvider {
         $this->registerLoopAndQuery();
         $this->registerPostManager();
         $this->registerPostTypeManager();
-        $this->registerPostTypes();
     }
 
     protected function registerLoopAndQuery()
@@ -57,14 +56,6 @@ class PostServiceProvider extends ServiceProvider {
                 return new PostTypeManager($app['actions']);
             }
         );
-    }
-
-    protected function registerPostTypes()
-    {
-        foreach (config('posts.types', []) as $postTypeModel)
-        {
-            $this->app['posts.types']->register($postTypeModel);
-        }
     }
 
     public function provides()
