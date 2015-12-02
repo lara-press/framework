@@ -19,20 +19,23 @@ class ControllerDispatcher extends BaseControllerDispatcher {
         Controller::setRouter($this->router);
 
         $controller = $this->container->make($controller);
-
-        if ( ! $controller instanceof AdminPageController)
+        
+        if ($controller instanceof \LaraPress\Routing\Controller)
         {
-            if ($this->container->isShared('post'))
+            if ( ! $controller instanceof AdminPageController)
             {
-                $controller->setPost($this->container['post']);
+                if ($this->container->isShared('post'))
+                {
+                    $controller->setPost($this->container['post']);
+                }
+    
+                $controller->setQuery($this->container['query']);
             }
-
-            $controller->setQuery($this->container['query']);
-        }
-
-        if (method_exists($controller, 'boot'))
-        {
-            $this->container->call([$controller, 'boot']);
+    
+            if (method_exists($controller, 'boot'))
+            {
+                $this->container->call([$controller, 'boot']);
+            }
         }
 
         return $controller;
