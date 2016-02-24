@@ -26,7 +26,7 @@ class AdminPageServiceProvider extends ServiceProvider {
                     $adminController = $this->app->make($adminController);
 
                     $menuTitle = $adminController->getMenuTitle();
-continue;
+
                     add_menu_page(
                         $adminController->getTitle(),
                         !empty($menuTitle) ?: $adminController->getTitle(),
