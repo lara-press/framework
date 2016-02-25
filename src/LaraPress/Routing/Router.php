@@ -20,21 +20,21 @@ class Router extends RouterBase
      * Create a new Router instance.
      *
      * @param \Illuminate\Contracts\Events\Dispatcher $events
-     * @param ActionsDispatcher                       $actions
-     * @param \Illuminate\Container\Container         $container
+     * @param ActionsDispatcher $actions
+     * @param \Illuminate\Container\Container $container
      */
     public function __construct(Dispatcher $events, ActionsDispatcher $actions, Container $container = null)
     {
         parent::__construct($events, $container);
 
         $this->actions = $actions;
-        $this->routes  = new RouteCollection;
+        $this->routes = new RouteCollection;
     }
 
     /**
      * Register a new GET route with the router.
      *
-     * @param  string                $slug
+     * @param  string $slug
      * @param  \Closure|array|string $action
      *
      * @return \Illuminate\Routing\Route
@@ -50,8 +50,8 @@ class Router extends RouterBase
     /**
      * Add a route to the underlying route collection.
      *
-     * @param  array|string          $methods
-     * @param  string                $uri
+     * @param  array|string $methods
+     * @param  string $uri
      * @param  \Closure|array|string $action
      *
      * @return Route
@@ -73,29 +73,16 @@ class Router extends RouterBase
         return $route;
     }
 
-    public function admin($uri, $action)
+    public function adminGet($uri, $action)
     {
-        $url = 'admin.php?page=' . str_replace('-{id}', '', str_replace('/', '-', $uri));
-
-        foreach(explode('/', $uri) as $uriPart) {
-            if ($uriPart[0] == '{') {
-                $url .= '&' . substr($uriPart, 1, -1) . '=' . $uriPart;
-            }
-        }
-
-        $route = $this->addRoute('admin', $url, $action);
-
-        $uri = str_replace('-{id}', '', $uri);
-
-        $this->actions->listen(
-            'admin_menu',
-            function () use ($uri, $route) {
-                $this->addAdminMenuPage($uri, $route);
-            }
-        );
-
-        return $route;
+        return $this->registerAdminRoute(['GET', 'HEAD'], $uri, $action);
     }
+
+    public function adminPost($uri, $action)
+    {
+        return $this->registerAdminRoute('POST', $uri, $action);
+    }
+
 
     /**
      * @param $uri
@@ -109,23 +96,24 @@ class Router extends RouterBase
         $route->bind($request);
 
         $response = function () use ($route, $request) {
-            $response = $this->runRouteWithinStack($route, $request);
+            $response = $this->runRouteWithinStack(array_first($this->getRoutes(), function ($index, Route $route) use ($request) {
+                return $route->matches($request);
+            }), $request);
             $response->send();
         };
 
-        $slug        = implode('-', $uri);
+        $slug = implode('-', $uri);
         array_pop($uri);
-        $title       = ucwords(str_replace(['-', '_'], ' ', $slug));
+        $title = ucwords(str_replace(['-', '_'], ' ', $slug));
         $routeAction = $route->getAction();
 
         $capability = isset($routeAction['capability']) ? $routeAction['capability'] : 'manage_options';
-        $pageTitle  = isset($routeAction['pageTitle']) ? $routeAction['pageTitle'] : $title;
-        $menuTitle  = isset($routeAction['menuTitle']) ? $routeAction['menuTitle'] : $title;
-        $icon  = isset($routeAction['icon']) ? $routeAction['icon'] : '';
-        $position  = isset($routeAction['position']) ? $routeAction['position'] : null;
+        $pageTitle = isset($routeAction['pageTitle']) ? $routeAction['pageTitle'] : $title;
+        $menuTitle = isset($routeAction['menuTitle']) ? $routeAction['menuTitle'] : $title;
+        $icon = isset($routeAction['icon']) ? $routeAction['icon'] : '';
+        $position = isset($routeAction['position']) ? $routeAction['position'] : null;
 
         remove_menu_page($slug);
-
 
         $slug = str_replace('{id}-', '', $slug);
 
@@ -140,13 +128,51 @@ class Router extends RouterBase
      * Create a new Route object.
      *
      * @param  array|string $methods
-     * @param  string       $uri
-     * @param  mixed        $action
+     * @param  string $uri
+     * @param  mixed $action
      *
      * @return Route
      */
     protected function newRoute($methods, $uri, $action)
     {
         return (new Route($methods, $uri, $action))->setContainer($this->container);
+    }
+
+    /**
+     * @param $uri
+     * @return string
+     */
+    protected function parseAdminUri($uri)
+    {
+        $url = '?page=' . str_replace('-{id}', '', str_replace('/', '-', $uri));
+
+        foreach (explode('/', $uri) as $uriPart) {
+            if ($uriPart[0] == '{') {
+                $url .= '&' . substr($uriPart, 1, -1) . '=' . $uriPart;
+            }
+        }
+
+        return $url;
+    }
+
+    /**
+     * @param $methods
+     * @param $uri
+     * @param $action
+     * @return Route
+     */
+    protected function registerAdminRoute($methods, $uri, $action)
+    {
+        $url = $this->parseAdminUri($uri);
+
+        $route = $this->addRoute($methods, '/cms/wp-admin/admin.php' . $url, $action);
+
+        $uri = str_replace('-{id}', '', $uri);
+
+        $this->actions->listen('admin_menu', function () use ($uri, $route) {
+            $this->addAdminMenuPage($uri, $route);
+        });
+
+        return $route;
     }
 }
