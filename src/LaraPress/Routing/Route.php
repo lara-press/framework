@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Matching\HostValidator;
 use Illuminate\Routing\Matching\MethodValidator;
 use Illuminate\Routing\Matching\SchemeValidator;
-use Illuminate\Routing\Matching\UriValidator;
+use LaraPress\Routing\Matching\UriValidator;
 use Illuminate\Routing\Route as RouteBase;
 use LaraPress\Routing\Matching\ConditionalValidator;
 
