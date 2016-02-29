@@ -2,8 +2,11 @@
 
 namespace LaraPress\Routing;
 
+use App\Http\Kernel;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Router as RouterBase;
 use LaraPress\Actions\Dispatcher as ActionsDispatcher;
@@ -90,15 +93,56 @@ class Router extends RouterBase
      */
     protected function addAdminMenuPage($uri, Route $route)
     {
+        static $registeredPages;
+
         $uri = explode('/', $uri);
 
-        $request = Request::capture();
-        $route->bind($request);
+        $response = function () {
 
-        $response = function () use ($route, $request) {
-            $response = $this->runRouteWithinStack(array_first($this->getRoutes(), function ($index, Route $route) use ($request) {
-                return $route->matches($request);
-            }), $request);
+            $this->currentRequest = $request = app('request');
+
+            $response = $this->callFilter('before', $request);
+
+            if (is_null($response)) {
+
+                $this->current = $route = array_first($this->getRoutes(), function ($index, Route $route) use ($request) {
+                    return $route->matches($request, true);
+                });
+
+                $route->bind($request);
+
+                $request->setRouteResolver(function () use ($route) {
+                    return $route;
+                });
+
+                $this->events->fire('router.matched', [$route, $request]);
+
+                // Once we have successfully matched the incoming request to a given route we
+                // can call the before filters on that route. This works similar to global
+                // filters in that if a response is returned we will not call the route.
+                $response = $this->callRouteBefore($route, $request);
+
+                if (is_null($response)) {
+                    $response = $this->runRouteWithinStack($route, $request);
+                }
+
+                $response = $this->prepareResponse($request, $response);
+
+                // After we have a prepared response from the route or filter we will call to
+                // the "after" filters to do any last minute processing on this request or
+                // response object before the response is returned back to the consumer.
+                $this->callRouteAfter($route, $request, $response);
+            }
+
+            // Once this route has run and the response has been prepared, we will run the
+            // after filter to do any last work on the response or for this application
+            // before we will return the response back to the consuming code for use.
+            $response = $this->prepareResponse($request, $response);
+
+            $this->callFilter('after', $request, $response);
+
+            app(Kernel::class)->terminate($request, $response);
+
             $response->send();
         };
 
@@ -113,9 +157,15 @@ class Router extends RouterBase
         $icon = isset($routeAction['icon']) ? $routeAction['icon'] : '';
         $position = isset($routeAction['position']) ? $routeAction['position'] : null;
 
-        remove_menu_page($slug);
-
         $slug = str_replace('{id}-', '', $slug);
+
+        if (isset($registeredPages[$slug . '-' . implode('.', $uri)])) {
+            return;
+        }
+
+        $registeredPages[$slug . '-' . implode('.', $uri)] = true;
+
+        remove_menu_page($slug);
 
         if (count($uri) == 0) {
             add_menu_page($pageTitle, $menuTitle, $capability, $slug, $response, $icon, $position);

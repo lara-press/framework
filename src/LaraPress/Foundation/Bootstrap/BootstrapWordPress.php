@@ -3,6 +3,8 @@
 namespace LaraPress\Foundation\Bootstrap;
 
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Http\Kernel;
+use Illuminate\Http\Request;
 use LaraPress\Routing\Router;
 
 class BootstrapWordPress
@@ -19,17 +21,17 @@ class BootstrapWordPress
      */
     public function bootstrap(Application $app)
     {
-        $app['actions']->listen(
-            'init',
-            function () use ($app) {
+        $this->setDefaultPermalinkStructure($app);
 
-                $this->extractWordPressClasses($app);
+        $app['actions']->listen('init', function () use ($app) {
+            $this->extractWordPressClasses($app);
+            $this->bootstrapRoutes($app['router']);
+        });
 
-                $this->setDefaultPermalinkStructure($app);
-
-                $this->bootstrapRoutes($app['router']);
-            }
-        );
+        $app['actions']->listen('admin_init', function () use ($app) {
+            do_action('template_redirect');
+            $app[Kernel::class]->handle($request = Request::capture());
+        });
     }
 
     /**
@@ -47,13 +49,10 @@ class BootstrapWordPress
      */
     protected function setDefaultPermalinkStructure(Application $app)
     {
-        actions()->listen(
-            'wp_install',
-            function () use ($app) {
-                $app['wp_rewrite']->set_permalink_structure('/%postname%/');
-                $app['wp_rewrite']->flush_rules(true);
-            }
-        );
+        actions()->listen('wp_install', function () use ($app) {
+            $app['wp_rewrite']->set_permalink_structure('/%postname%/');
+            $app['wp_rewrite']->flush_rules(true);
+        });
     }
 
     /**
@@ -61,25 +60,16 @@ class BootstrapWordPress
      */
     protected function bootstrapRoutes(Router $router)
     {
-        $router->get(
-            '/wp-admin',
-            function () {
-                return redirect()->to('cms/wp-admin');
-            }
-        );
+        $router->get('/wp-admin', function () {
+            return redirect()->to('cms/wp-admin');
+        });
 
-        $router->get(
-            'robots.txt',
-            function () {
-                die;
-            }
-        );
+        $router->get('robots.txt', function () {
+            die;
+        });
 
-        $router->get(
-            'feed',
-            function () {
-                die;
-            }
-        );
+        $router->get('feed', function () {
+            die;
+        });
     }
 }
