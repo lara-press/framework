@@ -21,7 +21,7 @@ class UriValidator implements ValidatorInterface
         $regex = $route->getCompiled()->getRegex();
 
         if (str_contains($request->getRequestUri(), '/wp-admin')) {
-            return preg_match($regex, '/' . trim(rawurldecode($request->getRequestUri()), '/'));
+            return preg_match($regex, rawurldecode($request->getRequestUri()));
         }
 
         $path = $request->path() == '/' ? '/' : '/' . $request->path();

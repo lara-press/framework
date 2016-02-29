@@ -143,6 +143,10 @@ class Router extends RouterBase
 
             app(Kernel::class)->terminate($request, $response);
 
+            if ($response instanceof  RedirectResponse) {
+                $response->setTargetUrl(str_replace('cms/wp-admin/admin.php/cms', 'cms', $response->getTargetUrl()));
+            }
+
             $response->send();
         };
 
@@ -215,7 +219,7 @@ class Router extends RouterBase
     {
         $url = $this->parseAdminUri($uri);
 
-        $route = $this->addRoute($methods, '/cms/wp-admin/admin.php' . $url, $action);
+        $route = $this->addRoute($methods, '/admin.php' . $url, $action);
 
         $uri = str_replace('-{id}', '', $uri);
 
