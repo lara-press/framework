@@ -86,12 +86,16 @@ class Router extends RouterBase
         return $this->registerAdminRoute('POST', $uri, $action);
     }
 
+    public function adminPatch($uri, $action)
+    {
+        return $this->registerAdminRoute(['PUT', 'PATCH'], $uri, $action);
+    }
 
     /**
      * @param $uri
      * @param $route
      */
-    protected function addAdminMenuPage($uri, Route $route)
+    protected function addAdminMenuPage($uri, Route $route, $displayInSidebar = true)
     {
         static $registeredPages;
 
@@ -143,7 +147,7 @@ class Router extends RouterBase
 
             app(Kernel::class)->terminate($request, $response);
 
-            if ($response instanceof  RedirectResponse) {
+            if ($response instanceof RedirectResponse) {
                 $response->setTargetUrl(str_replace('cms/wp-admin/admin.php/cms', 'cms', $response->getTargetUrl()));
             }
 
@@ -215,7 +219,7 @@ class Router extends RouterBase
      * @param $action
      * @return Route
      */
-    protected function registerAdminRoute($methods, $uri, $action)
+    protected function registerAdminRoute($methods, $uri, $action, $displayInSidebar = true)
     {
         $url = $this->parseAdminUri($uri);
 
@@ -223,8 +227,8 @@ class Router extends RouterBase
 
         $uri = str_replace('-{id}', '', $uri);
 
-        $this->actions->listen('admin_menu', function () use ($uri, $route) {
-            $this->addAdminMenuPage($uri, $route);
+        $this->actions->listen('admin_menu', function () use ($uri, $route, $displayInSidebar) {
+            $this->addAdminMenuPage($uri, $route, $displayInSidebar);
         });
 
         return $route;
