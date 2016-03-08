@@ -30,15 +30,17 @@ class SupportServiceProvider extends ServiceProvider {
 
         foreach (config('supports') as $feature => $value)
         {
-            if ($value === 'automatic-feed-links')
-            {
-                $feature = $value;
-                add_theme_support($feature);
-            }
-            else
-            {
-                add_theme_support($feature, $value);
-            }
+            $this->app['actions']->listen('init', function() use ($feature, $value) {
+               if ($value === 'automatic-feed-links')
+                {
+                    $feature = $value;
+                    add_theme_support($feature);
+                }
+                else
+                {
+                    add_theme_support($feature, $value);
+                } 
+            });
         }
     }
 }
