@@ -86,12 +86,16 @@ class Router extends RouterBase
         return $this->registerAdminRoute('POST', $uri, $action);
     }
 
+    public function adminPatch($uri, $action)
+    {
+        return $this->registerAdminRoute(['PUT', 'PATCH'], $uri, $action);
+    }
 
     /**
      * @param $uri
      * @param $route
      */
-    protected function addAdminMenuPage($uri, Route $route)
+    protected function addAdminMenuPage($uri, Route $route, $displayInSidebar = true)
     {
         static $registeredPages;
 
@@ -99,17 +103,29 @@ class Router extends RouterBase
 
         $response = function () {
 
+            $app = app();
+
             $this->currentRequest = $request = app('request');
+
+            if (isset($app['wp_admin_response'])) {
+                $app['wp_admin_response']->send();
+                app(Kernel::class)->terminate($request, $app['wp_admin_response']);
+                return;
+            }
 
             $response = $this->callFilter('before', $request);
 
             if (is_null($response)) {
 
-                $this->current = $route = array_first($this->getRoutes(), function ($index, Route $route) use ($request) {
+                $this->current = $route = array_first($this->getRoutes(), function ($i, Route $route) use ($request) {
                     return $route->matches($request, true);
                 });
 
+                $this->container->instance('Illuminate\Routing\Route', $route);
+
                 $route->bind($request);
+
+                $this->substituteBindings($route);
 
                 $request->setRouteResolver(function () use ($route) {
                     return $route;
@@ -125,13 +141,6 @@ class Router extends RouterBase
                 if (is_null($response)) {
                     $response = $this->runRouteWithinStack($route, $request);
                 }
-
-                $response = $this->prepareResponse($request, $response);
-
-                // After we have a prepared response from the route or filter we will call to
-                // the "after" filters to do any last minute processing on this request or
-                // response object before the response is returned back to the consumer.
-                $this->callRouteAfter($route, $request, $response);
             }
 
             // Once this route has run and the response has been prepared, we will run the
@@ -141,13 +150,12 @@ class Router extends RouterBase
 
             $this->callFilter('after', $request, $response);
 
-            app(Kernel::class)->terminate($request, $response);
-
-            if ($response instanceof  RedirectResponse) {
+            if ($response instanceof RedirectResponse) {
                 $response->setTargetUrl(str_replace('cms/wp-admin/admin.php/cms', 'cms', $response->getTargetUrl()));
             }
 
             $response->send();
+            app(Kernel::class)->terminate($request, $response);
         };
 
         $slug = implode('-', $uri);
@@ -215,7 +223,7 @@ class Router extends RouterBase
      * @param $action
      * @return Route
      */
-    protected function registerAdminRoute($methods, $uri, $action)
+    protected function registerAdminRoute($methods, $uri, $action, $displayInSidebar = true)
     {
         $url = $this->parseAdminUri($uri);
 
@@ -223,8 +231,8 @@ class Router extends RouterBase
 
         $uri = str_replace('-{id}', '', $uri);
 
-        $this->actions->listen('admin_menu', function () use ($uri, $route) {
-            $this->addAdminMenuPage($uri, $route);
+        $this->actions->listen('admin_menu', function () use ($uri, $route, $displayInSidebar) {
+            $this->addAdminMenuPage($uri, $route, $displayInSidebar);
         });
 
         return $route;

@@ -30,7 +30,7 @@ class BootstrapWordPress
 
         $app['actions']->listen('admin_init', function () use ($app) {
             do_action('template_redirect');
-            $app[Kernel::class]->handle($request = Request::capture());
+            $app['wp_admin_response'] = $app[Kernel::class]->handle($request = Request::capture());
         });
     }
 

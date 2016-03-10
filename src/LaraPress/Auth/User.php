@@ -84,4 +84,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
         return true;
     }
+
+    public function meta()
+    {
+        return $this->hasMany(Meta::class, 'user_id', 'ID');
+    }
 }

@@ -43,7 +43,7 @@ class RouteCollection extends \Illuminate\Routing\RouteCollection
      */
     protected function findMatchingWordPressPost(Request $request)
     {
-        if ( ! is_404()) {
+        if ( ! is_admin() && ! is_404()) {
             $route = $this->getByName('__catch_' . str_replace('\\', '.', get_class(app('post'))));
 
             if ( ! is_null($route)) {
@@ -63,12 +63,12 @@ class RouteCollection extends \Illuminate\Routing\RouteCollection
      */
     protected function checkForAlternateVerbs($request)
     {
-        $methods = array_diff(Router::$verbs, array($request->getMethod()));
+        $methods = array_diff(Router::$verbs, [$request->getMethod()]);
 
         // Here we will spin through all verbs except for the current request verb and
         // check to see if any routes respond to them. If they do, we will return a
         // proper error response with the correct headers on the response string.
-        $others = array();
+        $others = [];
 
         foreach ($methods as $method) {
             if ( ! is_null($this->check($this->get($method), $request, false))) {
