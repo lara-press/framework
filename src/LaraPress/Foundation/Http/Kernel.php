@@ -54,4 +54,32 @@ class Kernel extends HttpKernel {
             ->through($this->middleware)
             ->then($this->dispatchToRouter());
     }
+    
+    public function handle($request)
+    {
+        try {
+            $request->enableHttpMethodParameterOverride();
+
+            $response = $this->sendRequestThroughRouter($request);
+        } catch (Exception $e) {
+
+            if (is_admin() && $e instanceof NotFoundHttpException) {
+                $response = null;
+            } else {
+                $this->reportException($e);
+                $response = $this->renderException($request, $e);
+            }
+
+        } catch (Throwable $e) {
+            $e = new FatalThrowableError($e);
+
+            $this->reportException($e);
+
+            $response = $this->renderException($request, $e);
+        }
+
+        $this->app['events']->fire('kernel.handled', [$request, $response]);
+
+        return $response;
+    }
 }
