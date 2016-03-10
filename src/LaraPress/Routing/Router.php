@@ -103,17 +103,29 @@ class Router extends RouterBase
 
         $response = function () {
 
+            $app = app();
+
             $this->currentRequest = $request = app('request');
+
+            if (isset($app['wp_admin_response'])) {
+                $app['wp_admin_response']->send();
+                app(Kernel::class)->terminate($request, $app['wp_admin_response']);
+                return;
+            }
 
             $response = $this->callFilter('before', $request);
 
             if (is_null($response)) {
 
-                $this->current = $route = array_first($this->getRoutes(), function ($index, Route $route) use ($request) {
+                $this->current = $route = array_first($this->getRoutes(), function ($i, Route $route) use ($request) {
                     return $route->matches($request, true);
                 });
 
+                $this->container->instance('Illuminate\Routing\Route', $route);
+
                 $route->bind($request);
+
+                $this->substituteBindings($route);
 
                 $request->setRouteResolver(function () use ($route) {
                     return $route;
@@ -129,13 +141,6 @@ class Router extends RouterBase
                 if (is_null($response)) {
                     $response = $this->runRouteWithinStack($route, $request);
                 }
-
-                $response = $this->prepareResponse($request, $response);
-
-                // After we have a prepared response from the route or filter we will call to
-                // the "after" filters to do any last minute processing on this request or
-                // response object before the response is returned back to the consumer.
-                $this->callRouteAfter($route, $request, $response);
             }
 
             // Once this route has run and the response has been prepared, we will run the
@@ -145,13 +150,12 @@ class Router extends RouterBase
 
             $this->callFilter('after', $request, $response);
 
-            app(Kernel::class)->terminate($request, $response);
-
             if ($response instanceof RedirectResponse) {
                 $response->setTargetUrl(str_replace('cms/wp-admin/admin.php/cms', 'cms', $response->getTargetUrl()));
             }
 
             $response->send();
+            app(Kernel::class)->terminate($request, $response);
         };
 
         $slug = implode('-', $uri);
