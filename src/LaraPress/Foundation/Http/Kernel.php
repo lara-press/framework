@@ -2,9 +2,13 @@
 
 namespace LaraPress\Foundation\Http;
 
+use Exception;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\Facade;
+use Symfony\Component\Debug\Exception\FatalThrowableError;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Throwable;
 
 class Kernel extends HttpKernel {
 
@@ -54,7 +58,7 @@ class Kernel extends HttpKernel {
             ->through($this->middleware)
             ->then($this->dispatchToRouter());
     }
-    
+
     public function handle($request)
     {
         try {
