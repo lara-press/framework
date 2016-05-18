@@ -59,6 +59,6 @@ class WordPressUserProvider extends EloquentUserProvider {
     {
         $plain = $credentials['user_pass'];
 
-        return wp_authenticate($user->user_login, $plain);
+        return ! wp_authenticate($user->user_login, $plain) instanceof \WP_Error;
     }
 }
