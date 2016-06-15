@@ -43,12 +43,20 @@ class RouteCollection extends \Illuminate\Routing\RouteCollection
      */
     protected function findMatchingWordPressPost(Request $request)
     {
-        if ( ! is_admin() && ! is_404()) {
-            $route = $this->getByName('__catch_' . str_replace('\\', '.', get_class(app('post'))));
+        if (!is_admin() && !is_404()) {
 
-            if ( ! is_null($route)) {
+            $route = null;
+
+            if (app()->isShared('post')) {
+                $route = $this->getByName('__catch_' . str_replace('\\', '.', get_class(app('post'))));
+            } elseif (app()->isShared('wp_query') && app('wp_query')->is_posts_page) {
+                $route = $this->getByName('__catch_' . str_replace('\\', '.', app('posts.types')->get('post')));
+            }
+
+            if (!is_null($route)) {
                 return $route->bind($request);
             }
+
         }
 
         return null;
