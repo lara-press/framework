@@ -1,0 +1,12 @@
+.hero {
+  display: flex;
+  height: 512px;
+  align-items: center;
+  justify-content: center;
+  background: center/cover;
+
+  > h1 {
+    color: $ghost;
+    font-size: 4rem;
+  }
+}
