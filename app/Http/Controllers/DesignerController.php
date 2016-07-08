@@ -10,7 +10,7 @@ use LaraPress\Routing\Controller;
 
 class PagesController extends Controller
 {
-    public function frontPage()
+    public function defaultPage()
     {
         return view('pages/home', [
             'showHero' => true,
@@ -22,9 +22,13 @@ class PagesController extends Controller
         ]);
     }
 
-    public function defaultPage()
+    public function archive()
     {
-//        if (get_field('designer_page'))
         d('test');
+    }
+
+    public function single()
+    {
+        
     }
 }

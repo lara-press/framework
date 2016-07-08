@@ -58,7 +58,7 @@
 // Since the typical default browser font-size is 16px, that makes the calculation for grid size.
 // If you want your base font-size to be different and not have it affect the grid breakpoints,
 // set $rem-base to $base-font-size and make sure $base-font-size is a px value.
-// $base-font-size: 100%;
+$base-font-size: 120%;
 
 // The $base-font-size is 100% while $base-line-height is 150%
 // $base-line-height: 150%;
@@ -74,16 +74,19 @@ $include-html-global-classes: $include-html-classes;
 // $include-html-grid-classes: $include-html-classes;
 // $include-xl-html-grid-classes: false;
 
-$row-width: rem-calc(1200);
+//$row-width: rem-calc(1000);
 // $total-columns: 12;
 // $column-gutter: rem-calc(30);
 
 // c. Global
 // - - - - - - - - - - - - - - - - - - - - - - - - -
 
+@import 'https://fonts.googleapis.com/css?family=Lato:300,400,400i,700,900|Montserrat:400,700|Great+Vibes';
+
 // We use these to define default font stacks
-// $font-family-sans-serif: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
-// $font-family-serif: Georgia, Cambria, "Times New Roman", Times, serif;
+$font-family-sans-serif: Lato, Helvetica, Roboto, Arial, sans-serif;
+$font-family-serif: Montserrat, Georgia, Cambria, "Times New Roman", Times, serif;
+$font-family-cursive: Great Vibes, cursive;
 // $font-family-monospace: Consolas, "Liberation Mono", Courier, monospace;
 
 // We use these to define default font weights
@@ -96,18 +99,18 @@ $row-width: rem-calc(1200);
 // $vapor       : #F6F6F6;
 // $white-smoke : #F5F5F5;
 $silver: #EFEFEF;
-// $smoke       : #EEEEEE;
-// $gainsboro   : #DDDDDD;
+$smoke: #EEEEEE;
+$gainsboro: #DDDDDD;
 // $iron        : #CCCCCC;
 // $base        : #AAAAAA;
 // $aluminum    : #999999;
 // $jumbo       : #888888;
 // $monsoon     : #777777;
-// $steel       : #666666;
+$steel: #666666;
 // $charcoal    : #555555;
 // $tuatara     : #444444;
-// $oil         : #333333;
-// $jet         : #222222;
+//$oil: #333333;
+$jet: #222222;
 // $black       : #000000;
 
 // We use these as default colors throughout
@@ -119,8 +122,8 @@ $secondary-color: #958c93;
 // $info-color: #a0d3e8;
 
 // We use these to control various global styles
-$body-bg: $silver;
-// $body-font-color: $jet;
+$body-bg: $smoke;
+//$body-font-color: $jet;
 // $body-font-family: $font-family-sans-serif;
 // $body-font-weight: $font-weight-normal;
 // $body-font-style: normal;
@@ -200,12 +203,12 @@ $header-font-color: $primary-color;
 // $header-text-rendering: optimizeLegibility;
 
 // We use these to control header font sizes
-// $h1-font-size: rem-calc(44);
-// $h2-font-size: rem-calc(37);
-// $h3-font-size: rem-calc(27);
-// $h4-font-size: rem-calc(23);
-// $h5-font-size: rem-calc(18);
-// $h6-font-size: 1rem;
+$h1-font-size: rem-calc(32);
+$h2-font-size: rem-calc(24);
+$h4-font-size: rem-calc(20);
+$h3-font-size: rem-calc(18);
+$h5-font-size: rem-calc(16);
+$h6-font-size: 1rem;
 
 // We use these to control header size reduction on small screens
 // $h1-font-reduction: rem-calc(10) !default;
@@ -250,8 +253,8 @@ $header-font-color: $primary-color;
 // We use these to style anchors
 // $anchor-text-decoration: none;
 // $anchor-text-decoration-hover: none;
-$anchor-font-color: $secondary-color;
-$anchor-font-color-hover: scale-color($secondary-color, $lightness: -14%);
+//$anchor-font-color: $primary-color;
+//$anchor-font-color-hover: scale-color($primary-color, $lightness: -14%);
 
 // We use these to style the <hr> element
 // $hr-border-width: 1px;

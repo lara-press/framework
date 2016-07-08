@@ -1,4 +1,6 @@
 #header {
+  @extend .paper;
+
   height: 160px;
   display: flex;
   position: relative;
@@ -32,7 +34,8 @@
     text-align: center;
 
     a {
-      font-size: 1.5rem;
+      font-weight: 300;
+      font-size: 1.2rem;
     }
 
     &:nth-child(3) {

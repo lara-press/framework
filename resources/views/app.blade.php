@@ -57,10 +57,8 @@
 @if (!empty($__template))
     @include('templates.' . $__template)
 @else
-    <main id="main-content" class="row">
-        <div class="small-12 columns">
-            @yield('body')
-        </div>
+    <main id="main-content">
+        @yield('body')
     </main>
 @endif
 

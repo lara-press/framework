@@ -1,0 +1,128 @@
+#footer {
+
+  @extend .paper;
+
+  display: flex;
+  position: relative;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  border-top: $column-gutter/3 solid $primary-color;
+
+  &::before {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    content: "";
+    opacity: 0.5;
+    display: block;
+    position: absolute;
+    background-color: #666;
+  }
+
+  padding: ($column-gutter*2) 0;
+  background: url(http://www.optishower.com/wp-content/uploads/2016/02/3175-blue-water-1920x1080-abstract-wallpaper.jpg) no-repeat center/cover;
+}
+
+.primary-footer-content {
+
+  $border-color: scale-color($base, $lightness: 16%);
+
+  @include grid-row();
+
+  z-index: 1;
+  display: flex;
+  position: relative;
+  border-style: solid;
+  border-width: 2px 0;
+  border-color: $border-color;
+  flex-direction: row;
+  padding: ($column-gutter/2) 0;
+
+  > .column {
+    @include grid-column(12);
+
+    flex: 1;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    padding: $column-gutter * 2;
+
+    &:not(:last-of-type) {
+      border-right: 2px solid $border-color;
+    }
+
+    @media #{$medium-up} {
+      @include grid-column(4);
+    }
+
+    .title {
+      color: $jet;
+      font-size: 1.3rem;
+      margin-bottom: $column-gutter;
+    }
+  }
+}
+
+.social-media-list {
+
+  padding: 0;
+  display: flex;
+  list-style: none;
+
+  > li {
+    flex: 1;
+    padding: 0 ($column-gutter/4);
+
+    i {
+      font-size: 3rem;
+    }
+  }
+}
+
+.newsletter-sign-up {
+  display: flex;
+
+  input[type="text"] {
+    flex: 0 0 auto;
+  }
+
+  input[type="submit"] {
+    width: auto;
+    height: ($input-font-size + ($form-spacing * 1.5) - rem-calc(1));
+  }
+}
+
+.footer-links {
+  @extend .fixed-width;
+
+  padding: 0;
+  display: flex;
+  list-style: none;
+  align-items: center;
+  justify-content: center;
+  margin-top: $column-gutter;
+  margin-bottom: $column-gutter;
+
+  > li {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    a {
+      padding: 0 $column-gutter/2;
+    }
+
+    &:not(:last-of-type) {
+      border-right: 2px solid $tuatara;
+    }
+  }
+}
+
+.footer-copyright {
+  color: $oil;
+  font-size: 0.8rem;
+}
