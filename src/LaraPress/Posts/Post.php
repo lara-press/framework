@@ -149,6 +149,11 @@ class Post extends Eloquent
 
     public function getExcerptAttribute()
     {
+        return $this->getExcerpt(55);
+    }
+
+    public function getExcerpt($wordCount = 55)
+    {
         $excerpt = $this->post_excerpt;
 
         if (empty($excerpt)) {
@@ -158,14 +163,15 @@ class Post extends Eloquent
             $excerpt = apply_filters('the_content', $excerpt);
             $excerpt = str_replace(']]>', ']]&gt;', $excerpt);
 
-            $excerptLength = apply_filters('excerpt_length', $this->excerptLength ?: 55);
+            $excerptLength = apply_filters('excerpt_length', $this->excerptLength ?: $wordCount);
 
             $excerptMore = apply_filters('excerpt_more', ' ' . '[&hellip;]');
-            $excerpt     = wp_trim_words($excerpt, $excerptLength, $excerptMore);
+            $excerpt = wp_trim_words($excerpt, $excerptLength, $excerptMore);
         }
 
         return apply_filters('wp_trim_excerpt', $excerpt, $this->post_excerpt);
     }
+
 
     public function getContentAttribute()
     {
@@ -281,5 +287,31 @@ class Post extends Eloquent
         }
 
         return $truncate;
+    }
+
+    public function getFeaturedImageSrc($size = 'large')
+    {
+        $featuredImage = wp_get_attachment_image_src(get_post_thumbnail_id($this->ID), $size);
+
+        return !empty($featuredImage[0]) ? $featuredImage[0] : get_field('default_banner_image', 'option')['url'];
+    }
+
+    public function getFeaturedImage($size = 'large')
+    {
+        return wp_get_attachment_image(get_post_thumbnail_id($this->ID), $size);
+    }
+
+    public function getImageAltTextAttribute()
+    {
+        return get_post_meta(get_post_thumbnail_id($this->ID), '_wp_attachment_image_alt');
+    }
+
+    public function getPermalinkAttribute()
+    {
+        if (isset(static::$hrefTemplate)) {
+            return sprintf(static::$hrefTemplate, $this->post_name);
+        }
+
+        return get_permalink($this->ID);
     }
 }
