@@ -1,5 +1,4 @@
 var elixir = require('laravel-elixir');
-var larapressAssets = 'public/content/themes/larapress/assets';
 
 /*
  |--------------------------------------------------------------------------
@@ -15,7 +14,8 @@ var larapressAssets = 'public/content/themes/larapress/assets';
 elixir(
     function (mix)
     {
-        mix.sass('app.scss', 'public/content/themes/larapress/assets/css');
-        mix.copy('node_modules/font-awesome/fonts', larapressAssets + '/fonts');
+        mix.sass('app.scss');
+        mix.copy('node_modules/font-awesome/fonts', 'public/fonts');
+        mix.browserify('app.js');
     }
 );

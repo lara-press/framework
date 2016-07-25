@@ -2,33 +2,47 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Foundation\Validation\ValidatesRequests;
+use App\Designer;
+use App\Page;
+use App\Repositories\ProductRepository;
 use LaraPress\Routing\Controller as BaseController;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use LaraPress\Routing\Controller;
+use DB;
 
-class PagesController extends Controller
+class DesignerController extends Controller
 {
-    public function defaultPage()
+    /**
+     * @var ProductRepository
+     */
+    private $products;
+
+    /**
+     * DesignerController constructor.
+     * @param ProductRepository $products
+     */
+    public function __construct(ProductRepository $products)
     {
-        return view('pages/home', [
-            'showHero' => true,
-            'heroBackgroundImage' => 'http://cityhub.movoto.com/1460355717158_5-cities-in-idaho-that-will-instantly-feel-like-home-featured.jpg',
-            'heroOverlayText' => 'Welcome to McCall Jewelry Company',
-            'featuredDesignerBackgroundImage' => 'https://cdn1.vox-cdn.com/thumbor/ivBxXvjejiQ0h-uFQI6BanrnqAU=/0x47:569x367/1050x591/cdn0.vox-cdn.com/uploads/chorus_image/image/45289880/megan.0.jpg',
-            'featuredCollectionBackgroundImage' => 'https://assets.victorinox.com/medias/?context=bWFzdGVyfHRpbXw0MDk2M3xpbWFnZS9qcGVnfHRpbS9oMmYvaDk0Lzg3OTk0MjMyMDEzMTAuanBnfGRjOTk4MzVlZTc2M2Q2ZTliNDVkYjQwOGVkYjUxNTE4YjE4ZWVlNWMzMWIwNjljOTdmYTIwMjYzNDlmN2E0N2Y',
-            'customJewelryDesignBackgroundImage' => 'https://i.ytimg.com/vi/wP5xLwbmP2M/maxresdefault.jpg',
+        $this->products = $products;
+    }
+
+    public function index(Page $page)
+    {
+        $designers = Designer::paginate();
+
+        return view('pages.designers', [
+            'page' => $page,
+            'designers' => $designers,
         ]);
     }
 
-    public function archive()
+    public function show()
     {
-        d('test');
-    }
+        $designer = app('post');
+        $products = $this->products->getProductsByDesigner($designer);
 
-    public function single()
-    {
-        
+        return view('pages.designer', [
+            'designer' => $designer,
+            'products' => $products,
+        ]);
     }
 }

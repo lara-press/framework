@@ -38,7 +38,7 @@ php_timezone          = "America/Boise"    # http://php.net/manual/en/timezones.
 php_version           = "5.6"    # Options: 5.5 | 5.6
 
 # To install HHVM instead of PHP, set this to "true"
-hhvm                  = "false"
+hhvm                  = "true"
 
 # PHP Options
 composer_packages     = [        # List any global Composer packages that you want to install
@@ -104,6 +104,9 @@ Vagrant.configure("2") do |config|
 
     end
 
+    # Install Mailcatcher
+    config.vm.provision "shell", path: "scripts/mailhog.sh"
+
     # Provision Base Packages
     config.vm.provision "shell", path: "#{github_url}/scripts/base.sh", args: [github_url, server_swap, server_timezone]
 
@@ -125,9 +128,6 @@ Vagrant.configure("2") do |config|
     # Provision Composer
     # You may pass a github auth token as the first argument
     config.vm.provision "shell", path: "#{github_url}/scripts/composer.sh", privileged: false, args: [github_pat, composer_packages.join(" ")]
-
-    # Install Mailcatcher
-    config.vm.provision "shell", path: "#{github_url}/scripts/mailcatcher.sh"
 
   end
 

@@ -96,11 +96,14 @@
 }
 
 .footer-links {
+
   @extend .fixed-width;
 
   padding: 0;
+  z-index: 10;
   display: flex;
   list-style: none;
+  position: relative;
   align-items: center;
   justify-content: center;
   margin-top: $column-gutter;

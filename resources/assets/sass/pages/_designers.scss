@@ -1,0 +1,16 @@
+.designer-header {
+
+  .content {
+    display: flex;
+    flex-direction: row;
+
+    .featured-image-container {
+      flex: 1;
+    }
+
+    .post-content {
+      flex: 3;
+      padding: 0 $column-gutter/2;
+    }
+  }
+}

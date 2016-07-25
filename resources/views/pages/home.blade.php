@@ -2,37 +2,25 @@
 
 @section('body')
 
-    <section class="primary-content">
-        <h1 class="title">About</h1>
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer malesuada risus massa, dapibus tincidunt
-            turpis
-            ultricies
-            et. Aliquam auctor finibus euismod. Donec lobortis ante vitae lacus blandit egestas. Suspendisse nunc
-            sapien,
-            pretium eu
-            lectus a, fermentum rutrum est.
-        </p>
-    </section>
+    @include('partials._section', ['content' => $post->content, 'title' => 'About'])
 
-    <div class="home-featured-content">
-        <section class="home-feature">
+    <div class="section featured-tile-grid">
+        <section class="featured-tile">
             <h2 class="title">Featured Designer</h2>
-            <div class="content" style="background-image: url({{ $featuredDesignerBackgroundImage }}">
+            <div class="content" style="background-image: url({{ $featuredDesignerBackgroundImage }})">
                 <span class="text">Megan Thorne</span>
             </div>
         </section>
-        <section class="home-feature">
+        <section class="featured-tile">
             <h2 class="title">Featured Collection</h2>
-            <div class="content" style="background-image: url({{ $featuredCollectionBackgroundImage }}">
+            <div class="content" style="background-image: url({{ $featuredCollectionBackgroundImage }})">
                 <span class="text">Bertusomethin Watches</span>
             </div>
         </section>
+        <section class="featured-tile">
+            <h2 class="title">Custom Jewelry Design</h2>
+            <div class="content" style="background-image: url({{ $customJewelryDesignBackgroundImage }}" />
+        </section>
     </div>
-
-    <section class="home-feature fixed-width">
-        <h2 class="title">Custom Jewelry Design</h2>
-        <div class="content" style="background-image: url({{ $customJewelryDesignBackgroundImage }}"/>
-    </section>
 
 @stop

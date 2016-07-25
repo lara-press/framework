@@ -13,8 +13,15 @@
 |
 */
 
+use App\Designer;
 use App\Page;
 
 $router->get('/', 'PagesController@frontPage');
 
 $router->handle(Page::class, 'PagesController@defaultPage');
+$router->handle(Designer::class, 'DesignerController@show');
+
+$router->get('products/{term}', 'ProductController@index');
+$router->get('product/{product}', 'ProductController@show');
+
+$router->post('submit-contact', 'ContactController@submit');

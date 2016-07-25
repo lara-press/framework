@@ -13,6 +13,7 @@ class MenuServiceProvider extends BaseMenuServiceProvider
      * @var array
      */
     protected $menus = [
-        'header-nav' => 'Header Navigation'
+        'header-nav' => 'Header Navigation',
+        'footer-nav' => 'Footer Navigation',
     ];
 }

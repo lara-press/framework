@@ -9,6 +9,9 @@ resources/vendor
 node_modules
 
 /public/cms/*
+/public/css
+/public/js
+/public/fonts
 !/public/cms/.gitkeep
 /public/content/plugins/
 /public/content/uploads/

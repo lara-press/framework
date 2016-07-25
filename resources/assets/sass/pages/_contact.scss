@@ -1,0 +1,25 @@
+.contact-container {
+  @extend .fixed-width;
+
+  > aside {
+    padding-right: $column-gutter;
+    padding-left: $column-gutter;
+  }
+
+  @media #{$medium-up} {
+    display: flex;
+
+    > form {
+      flex: 3;
+    }
+
+    > aside {
+      flex: 1;
+      padding-right: 0;
+
+      .GoogleMap {
+        margin-bottom: $column-gutter;
+      }
+    }
+  }
+}

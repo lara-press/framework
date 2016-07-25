@@ -7,64 +7,35 @@
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-{{--<title>{{ wp_title('|', false, 'right') }}</title>--}}
-
-<!-- Modernizr -->
-{!! HTML::script(larapress_assets('js/modernizr.js')) !!}
-
-<!-- Google Fonts - Lusitana -->
-    <link href='https://fonts.googleapis.com/css?family=Lusitana:400,700' rel='stylesheet' type='text/css'>
-
     <link rel="profile" href="http://gmpg.org/xfn/11">
     <link rel="pingback" href="{{ get_bloginfo('pingback_url') }}">
 
     @wphead
 
-    {!! HTML::style(larapress_assets('css/app.css')) !!}
-
-    @if (!empty(get_field('google_analytics_key', 'options')))
-
-        <script>
-            (function (i, s, o, g, r, a, m) {
-                i['GoogleAnalyticsObject'] = r;
-                i[r] = i[r] || function () {
-                            (i[r].q = i[r].q || []).push(arguments)
-                        }, i[r].l = 1 * new Date();
-                a = s.createElement(o),
-                        m = s.getElementsByTagName(o)[0];
-                a.async = 1;
-                a.src = g;
-                m.parentNode.insertBefore(a, m)
-            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-
-            ga('create', '{{ get_field('google_analytics_key', 'options') }}', 'auto');
-            ga('send', 'pageview');
-
-        </script>
-
-    @endif
+    {!! HTML::style('css/app.css') !!}
 
 </head>
 
-<body <?php body_class(!empty($page) ? $page->slug : '') ?>>
+<body <?php body_class(! empty($page) ? $page->slug : '') ?>>
 
-@include('partials.header')
+@include('partials._header')
 
-@if ($showHero)
-    @include('partials.hero', ['backgroundImage' => $heroBackgroundImage, 'overlayText' => $heroOverlayText])
+@if (isset($showHero) && $showHero && isset($heroBackgroundImage))
+    @include('partials._hero', ['backgroundImage' => $heroBackgroundImage, 'overlayText' => $heroOverlayText])
 @endif
 
 @if (!empty($__template))
     @include('templates.' . $__template)
 @else
     <main id="main-content">
+        {!! yoast_breadcrumb('<div id="breadcrumbs">', '</div>', false) !!}
         @yield('body')
     </main>
 @endif
 
-@include('partials.footer')
+@include('partials._footer')
 
-{!! HTML::script(larapress_assets('js/app.js')) !!}
+{!! HTML::script('js/app.js') !!}
 
 @wpfooter
 </body>

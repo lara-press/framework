@@ -26,16 +26,14 @@
         </div>
     </div>
 
-    <ul class="footer-links">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Designers</a></li>
-        <li><a href="#">Idaho</a></li>
-        <li><a href="#">Collections</a></li>
-        <li><a href="#">Bridal</a></li>
-        <li><a href="#">Watches</a></li>
-        <li><a href="#">Contact</a></li>
-        <li><a href="#">Store Policies</a></li>
-    </ul>
+    <nav>
+        {!! wp_nav_menu([
+            'container'      => false,
+            'echo'           => false,
+            'menu_class' => 'footer-links',
+            'theme_location' => 'footer-nav',
+        ]) !!}
+    </nav>
 
     <span class="footer-copyright">
         &copy; {{ \Carbon\Carbon::now()->format('Y') }} mccall jewelry company

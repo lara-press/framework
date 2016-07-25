@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'url' => 'http://localhost',
+    'url' => env('WP_HOME'),
 
     /*
     |--------------------------------------------------------------------------
@@ -153,6 +153,7 @@ return [
         /*
          * Application Service Providers...
          */
+        App\Providers\TaxonomyServiceProvider::class,
         App\Providers\PostTypeServiceProvider::class,
         App\Providers\ViewServiceProvider::class,
         App\Providers\AppServiceProvider::class,
