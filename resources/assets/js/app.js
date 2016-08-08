@@ -1,2 +1,1 @@
-import 'google-maps';
-import './map';
+require('../scss/app.scss');

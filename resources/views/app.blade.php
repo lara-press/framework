@@ -3,7 +3,6 @@
 
 <head>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/foundation.css">
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -12,7 +11,8 @@
 
     @wphead
 
-    {!! HTML::style('css/app.css') !!}
+    {!! HTML::script('http://localhost:3000/dist/bundle.js') !!}
+    {!! HTML::style('http://localhost:3000/dist/app.css') !!}
 
 </head>
 
@@ -34,8 +34,6 @@
 @endif
 
 @include('partials._footer')
-
-{!! HTML::script('js/app.js') !!}
 
 @wpfooter
 </body>
