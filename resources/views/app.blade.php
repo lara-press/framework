@@ -11,8 +11,7 @@
 
     @wphead
 
-    {!! HTML::script('http://localhost:3000/dist/bundle.js') !!}
-    {!! HTML::style('http://localhost:3000/dist/app.css') !!}
+    {{--<link rel="stylesheet" href="{!! webpack('css', 'app') !!}">--}}
 
 </head>
 
@@ -36,6 +35,10 @@
 @include('partials._footer')
 
 @wpfooter
+
+<script src="{!! webpack('js', 'vendor') !!}"></script>
+<script src="{!! webpack('js', 'app') !!}"></script>
+
 </body>
 
 </html>
