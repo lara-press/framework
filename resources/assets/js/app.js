@@ -1,3 +1,3 @@
-require('../scss/app.scss');
+// require('../scss/app.scss');
 import 'google-maps';
 import './map';

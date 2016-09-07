@@ -81,7 +81,7 @@ var config = {
     // Map $ and jQuery to `require('jquery')`
     new webpack.ProvidePlugin({
       $: 'jquery',
-      jQuery: 'jquery'
+      jQuery: 'jquery',
     }),
 
     // Analyzes chunks for recurring dependencies, and extracts them somewhere else
