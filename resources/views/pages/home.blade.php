@@ -2,7 +2,7 @@
 
 @section('body')
 
-    @include('partials._section', ['content' => $post->content, 'title' => 'About'])
+    @include('partials._section', ['content' => $__post->content, 'title' => 'About'])
 
     <div class="section featured-tile-grid">
         <section class="featured-tile">

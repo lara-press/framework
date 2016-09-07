@@ -16,11 +16,8 @@ class AppServiceProvider extends ServiceProvider
     {
         require_once app_path('helpers.php');
 
-        $this->app->actions->listen('init', function () {
+        $this->app->actions->listen('afc/init', function () {
             acf_add_options_page();
-        });
-
-        $this->app->actions->listen('plugins_loaded', function () {
         });
 
         $this->app->filters->listen('acf/fields/google_map/api', function ($api) {

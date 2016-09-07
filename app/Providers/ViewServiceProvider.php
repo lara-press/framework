@@ -19,6 +19,7 @@ class ViewServiceProvider extends BaseViewServiceProvider
 
         actions()->listen('wp', function () use ($view) {
 
+
             if (app()->isShared('post')) {
 
                 /** @var Post $post */

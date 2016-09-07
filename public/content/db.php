@@ -1,0 +1,1 @@
+/development/mccalljewelry/public/content/plugins/query-monitor/classes/wp-content/db.php

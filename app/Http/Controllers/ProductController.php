@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Designer;
 use App\Page;
+use App\Post;
 use App\Product;
 use App\Repositories\ProductRepository;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
 use LaraPress\Posts\TermTaxonomy;
 use LaraPress\Routing\Controller as BaseController;
