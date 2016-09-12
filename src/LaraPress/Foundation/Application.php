@@ -20,7 +20,6 @@ class Application extends BaseApplication {
         $this->register(new EventServiceProvider($this));
         $this->register(new ActionServiceProvider($this));
         $this->register(new FilterServiceProvider($this));
-
         $this->register(new RoutingServiceProvider($this));
     }
 
