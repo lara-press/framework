@@ -15,12 +15,11 @@ class ProductCollection implements CustomTaxonomy
     {
         return [
             'hierarchical'      => true,
-            'query_var'         => true,
             'public'            => true,
             'show_ui'           => true,
             'show_admin_column' => true,
             'show_in_nav_menus' => true,
-            'show_tagcloud'     => true,
+            'show_tagcloud'     => false,
             'rewrite'           => ['slug' => 'products'],
         ];
     }

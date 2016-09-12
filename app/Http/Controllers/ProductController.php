@@ -77,19 +77,17 @@ class ProductController extends Controller
      */
     protected function getChildCollections($collectionSlug)
     {
-        $watchTaxonomy = get_terms([
+        $watchTaxonomy = get_terms(['product_collection'], [
             'slug'       => $collectionSlug,
             'hide_empty' => false,
-            'taxonomy'   => 'product_collection',
         ]);
 
         if (empty($watchTaxonomy)) {
             return [];
         }
 
-        $collections = get_terms([
+        $collections = get_terms(['product_collection'], [
             'hide_empty' => false,
-            'taxonomy'   => 'product_collection',
             'child_of'   => $watchTaxonomy[0]->term_id,
         ]);
 
