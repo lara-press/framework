@@ -3,7 +3,7 @@ Contributors: johnbillion
 Tags: ajax, debug, debug-bar, debugging, development, developer, performance, profiler, profiling, queries, query monitor, rest-api
 Requires at least: 3.7
 Tested up to: 4.6
-Stable tag: 2.11.4
+Stable tag: 2.13.1
 License: GPLv2 or later
 
 View debugging and performance information on database queries, hooks, conditionals, HTTP requests, redirects and more.
@@ -27,7 +27,7 @@ Here's an overview of what's shown:
  * View aggregate query information grouped by component, calling function, and type
  * Super advanced: Supports multiple instances of wpdb on one page (more info in the FAQ)
 
-Filtering queries by component or calling function makes it easy to see which plugins, themes, or functions on your site are making the most (or the slowest) database queries.
+Filtering queries by component or calling function makes it easy to see which plugins, themes, or functions are making the most (or the slowest) database queries.
 
 = Hooks =
 
@@ -38,6 +38,7 @@ Filtering queries by component or calling function makes it easy to see which pl
 = Theme =
 
  * Shows the template filename for the current request
+ * Shows the complete template hierarchy for the current request (WordPress 4.7+)
  * Shows all template parts used on the current request
  * Shows the available body classes for the current request
  * Shows the active theme name
@@ -56,22 +57,22 @@ Filtering queries by component or calling function makes it easy to see which pl
 
 = Rewrite Rules =
 
- * Shows all matching rewrite rules for a given request
+ * Shows all matching rewrite rules for the current request
 
 = Scripts & Styles =
 
  * Shows all enqueued scripts and styles on the current request, along with their URL and version
- * Shows their dependencies and dependents, and alerts you to any broken dependencies
+ * Shows their dependencies and dependents, and displays an alert for any broken dependencies
 
 = Languages =
 
- * Shows you language settings and text domains
- * Shows you the MO files for each text domain and which ones were loaded or not
+ * Shows language settings and text domains
+ * Shows the MO files for each text domain and which ones were loaded or not
 
 = HTTP Requests =
 
  * Shows all HTTP requests performed on the current request (as long as they use WordPress' HTTP API)
- * Shows the response code, call stack, transport, component, timeout, and time taken
+ * Shows the response code, call stack, component, timeout, and time taken
  * Highlights erroneous responses, such as failed requests and anything without a `200` response code
 
 = Redirects =
@@ -174,4 +175,4 @@ No, I do not accept donations. If you like the plugin, I'd love for you to [leav
 
 == Changelog ==
 
-See [changelog.md](https://github.com/johnbillion/query-monitor/blob/master/changelog.md) for Query Monitor's changelog.
+For Query Monitor's changelog, please see [the Releases page on GitHub](https://github.com/johnbillion/query-monitor/releases).
