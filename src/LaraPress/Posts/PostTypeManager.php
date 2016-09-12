@@ -6,7 +6,8 @@ use LaraPress\Actions\Dispatcher;
 use LaraPress\Contracts\Posts\CustomPostType;
 use LaraPress\Contracts\Posts\PostTypeManager as PostTypeManagerContract;
 
-class PostTypeManager implements PostTypeManagerContract {
+class PostTypeManager implements PostTypeManagerContract
+{
 
     /** @var Post[] */
     protected $postTypes = [];
@@ -23,23 +24,17 @@ class PostTypeManager implements PostTypeManagerContract {
 
     public function register($model)
     {
-        if (is_string($model))
-        {
-            if ( ! class_exists($model))
-            {
+        if (is_string($model)) {
+            if ( ! class_exists($model)) {
                 throw new \InvalidArgumentException('Attempted to register a post type whose model does not exist.');
             }
 
             $model = new $model;
         }
 
-        $this->actions->listen(
-            'init',
-            function () use ($model)
-            {
-                $this->makeCustomPostType($model);
-            }
-        );
+        $this->actions->listen('init', function () use ($model) {
+            $this->makeCustomPostType($model);
+        });
     }
 
     public function get($postType)
@@ -56,8 +51,7 @@ class PostTypeManager implements PostTypeManagerContract {
     {
         $postTypeSlug = strtolower(snake_case(class_basename($model)));
 
-        if ($model instanceof CustomPostType)
-        {
+        if ($model instanceof CustomPostType) {
             $singular =
                 property_exists($model, 'singular') ? $model->singular : str_replace(['-', '_'], ' ', $postTypeSlug);
 
@@ -69,25 +63,20 @@ class PostTypeManager implements PostTypeManagerContract {
 
             $postTypeData = $model->customPostTypeData();
 
-            if ( ! is_array($postTypeData))
-            {
+            if ( ! is_array($postTypeData)) {
                 $postTypeData = [];
             }
 
             $result = register_post_type($postTypeSlug, $this->buildPostTypeData($singular, $plural, $postTypeData));
 
-            if ( ! $result instanceof \WP_Error)
-            {
+            if ( ! $result instanceof \WP_Error) {
                 $this->postTypes[$postTypeSlug] = get_class($model);
 
-                if (property_exists($model, 'placeholderText'))
-                {
+                if (property_exists($model, 'placeholderText')) {
                     add_filter(
                         'enter_title_here',
-                        function ($default) use ($postTypeSlug, $model)
-                        {
-                            if ($postTypeSlug == get_current_screen()->post_type)
-                            {
+                        function ($default) use ($postTypeSlug, $model) {
+                            if ($postTypeSlug == get_current_screen()->post_type) {
                                 $default = $model->placeholderText;
                             }
 
@@ -96,9 +85,7 @@ class PostTypeManager implements PostTypeManagerContract {
                     );
                 }
             }
-        }
-        else
-        {
+        } else {
             $this->postTypes[$postTypeSlug] = get_class($model);
         }
     }
@@ -113,7 +100,7 @@ class PostTypeManager implements PostTypeManagerContract {
     protected function buildPostTypeData($singular, $plural, $args)
     {
         $singular = ucwords($singular);
-        $plural   = ucwords($plural);
+        $plural = ucwords($plural);
 
         $labels = [
             'name'               => __($plural, LARAPRESS_TEXTDOMAIN),
@@ -128,7 +115,7 @@ class PostTypeManager implements PostTypeManagerContract {
             'not_found'          => __('No ' . strtolower($singular) . ' found', LARAPRESS_TEXTDOMAIN),
             'not_found_in_trash' => __('No ' . strtolower($singular) . ' found in trash', LARAPRESS_TEXTDOMAIN),
             'parent_item_colon'  => '',
-            'menu_name'          => __($plural, LARAPRESS_TEXTDOMAIN)
+            'menu_name'          => __($plural, LARAPRESS_TEXTDOMAIN),
         ];
 
         return array_merge(
@@ -138,7 +125,7 @@ class PostTypeManager implements PostTypeManagerContract {
                 'description'   => '',
                 'public'        => true,
                 'menu_position' => 20,
-                'has_archive'   => true
+                'has_archive'   => true,
             ],
             $args
         );

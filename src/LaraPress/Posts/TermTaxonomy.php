@@ -17,5 +17,4 @@ class TermTaxonomy extends Eloquent
     {
         return $this->belongsTo(Term::class, 'term_id', 'term_id');
     }
-
 }
