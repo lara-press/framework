@@ -15,7 +15,7 @@ class MailServiceProvider extends ServiceProvider {
     {
         if (config('mail.override_wordpress', false))
         {
-            //include(__DIR__ . '/wp_mail.php');
+            include(__DIR__ . '/wp_mail.php');
         }
     }
 }
