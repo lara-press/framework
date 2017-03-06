@@ -1,0 +1,42 @@
+{
+  "name": "lara-press/framework",
+  "description": "The LaraPress framework.",
+  "keywords": [
+    "larapress",
+    "framework",
+    "WordPress",
+    "Laravel",
+    "plugin"
+  ],
+  "license": "GPL-2.0+",
+  "authors": [
+    {
+      "name": "Jeff Berry",
+      "email": "jeff@portonefive.com",
+      "homepage": "http://lara.press"
+    },
+    {
+      "name": "Nick Hough",
+      "email": "nick@portonefive.com",
+      "homepage": "http://lara.press"
+    }
+  ],
+  "require": {
+    "php": ">=5.4",
+    "composer/installers": "~1.0",
+    "laravel/framework": "5.1.*@dev",
+    "guzzlehttp/guzzle" : "~5.0",
+    "laravelcollective/html": "5.1.*"
+  },
+  "autoload": {
+    "files": [
+      "src/LaraPress/Foundation/helpers.php"
+    ],
+    "psr-4": {
+      "LaraPress\\": "src/LaraPress/"
+    }
+  },
+  "require-dev": {
+    "php": ">=5.4"
+  }
+}
