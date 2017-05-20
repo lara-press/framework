@@ -61,29 +61,4 @@ class RouteCollection extends \Illuminate\Routing\RouteCollection
 
         return null;
     }
-
-    /**
-     * Determine if any routes match on another HTTP verb.
-     *
-     * @param  \Illuminate\Http\Request $request
-     *
-     * @return array
-     */
-    protected function checkForAlternateVerbs($request)
-    {
-        $methods = array_diff(Router::$verbs, [$request->getMethod()]);
-
-        // Here we will spin through all verbs except for the current request verb and
-        // check to see if any routes respond to them. If they do, we will return a
-        // proper error response with the correct headers on the response string.
-        $others = [];
-
-        foreach ($methods as $method) {
-            if ( ! is_null($this->check($this->get($method), $request, false))) {
-                $others[] = $method;
-            }
-        }
-
-        return $others;
-    }
 }
