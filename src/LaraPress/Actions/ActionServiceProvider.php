@@ -4,6 +4,7 @@ namespace LaraPress\Actions;
 
 use Illuminate\Contracts\Queue\Queue;
 use Illuminate\Support\ServiceProvider;
+use LaraPress\Foundation\Application;
 
 class ActionServiceProvider extends ServiceProvider {
 
@@ -16,7 +17,7 @@ class ActionServiceProvider extends ServiceProvider {
     {
         $this->app->singleton(
             'actions',
-            function ($app)
+            function (Application $app)
             {
                 return (new Dispatcher($app))->setQueueResolver(
                     function () use ($app)

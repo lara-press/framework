@@ -5,9 +5,7 @@ namespace LaraPress\Routing;
 use App\Http\Kernel;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Router as RouterBase;
 use LaraPress\Actions\Dispatcher as ActionsDispatcher;
 
@@ -95,7 +93,7 @@ class Router extends RouterBase
      * @param $uri
      * @param $route
      */
-    protected function addAdminMenuPage($uri, Route $route, $displayInSidebar = true)
+    protected function addAdminMenuPage($uri, Route $route)
     {
         static $registeredPages;
 
