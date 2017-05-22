@@ -95,16 +95,16 @@ class Manager {
 
         $this->actions->listen(
             $hook,
-            function () use ($handle, $path, $dependencies, $version, $footer, $area, $type)
+            function () use ($handle, $path, $dependencies, $version, $footer, $type)
             {
                 switch ($type)
                 {
                     case self::TYPE_SCRIPT :
-                        wp_enqueue_script($handle, $path, $dependencies, $version, $footer, $area);
+                        wp_enqueue_script($handle, $path, $dependencies, $version, $footer);
                         break;
 
                     case self::TYPE_STYLE:
-                        wp_enqueue_style($handle, $path, $dependencies, $version, $footer, $area);
+                        wp_enqueue_style($handle, $path, $dependencies, $version, $footer);
                         break;
                 }
             }
