@@ -46,6 +46,16 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     }
 
     /**
+     * Get the id for the user.
+     *
+     * @return integer
+     */
+    public function getAuthIdentifierName()
+    {
+        return $this->ID;
+    }
+
+    /**
      * Get the password for the user.
      *
      * @return string
