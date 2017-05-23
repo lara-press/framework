@@ -24,9 +24,9 @@
   "require": {
     "php": ">=5.4",
     "composer/installers": "~1.0",
-    "laravel/framework": "5.2.*",
+    "laravel/framework": "5.3.*",
     "guzzlehttp/guzzle" : "~6.0",
-    "laravelcollective/html": "5.2.*"
+    "laravelcollective/html": "5.3.*"
   },
   "autoload": {
     "files": [
@@ -38,7 +38,7 @@
   },
   "require-dev": {
     "php": ">=5.4",
-    "symfony/dom-crawler": "~3.0",
-    "symfony/css-selector": "~3.0"
+    "symfony/dom-crawler": "3.1.*",
+    "symfony/css-selector": "3.1.*"
   }
 }
