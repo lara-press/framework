@@ -47,15 +47,20 @@ class Kernel extends HttpKernel {
     /**
      * Send the given request through the middleware / router.
      *
-     * @param  \Illuminate\Http\Request $request
-     *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     protected function sendRequestThroughRouter($request)
     {
+        $this->app->instance('request', $request);
+
+        Facade::clearResolvedInstance('request');
+
+        $this->bootstrap();
+
         return (new Pipeline($this->app))
-            ->send($this->app['request'])
-            ->through($this->middleware)
+            ->send($request)
+            ->through($this->app->shouldSkipMiddleware() ? [] : $this->middleware)
             ->then($this->dispatchToRouter());
     }
 

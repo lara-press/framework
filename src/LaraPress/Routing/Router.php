@@ -187,15 +187,16 @@ class Router extends RouterBase
     /**
      * Create a new Route object.
      *
-     * @param  array|string $methods
-     * @param  string $uri
-     * @param  mixed $action
-     *
+     * @param  array|string  $methods
+     * @param  string  $uri
+     * @param  mixed  $action
      * @return Route
      */
     protected function newRoute($methods, $uri, $action)
     {
-        return (new Route($methods, $uri, $action))->setContainer($this->container);
+        return (new Route($methods, $uri, $action))
+            ->setRouter($this)
+            ->setContainer($this->container);
     }
 
     /**
