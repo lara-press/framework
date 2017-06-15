@@ -4,9 +4,9 @@ namespace LaraPress\Posts;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model as Eloquent;
-use Illuminate\Database\Eloquent\ScopeInterface;
+use Illuminate\Database\Eloquent\Scope;
 
-class PostTypeScope implements ScopeInterface {
+class PostTypeScope implements Scope {
 
     /**
      * Apply the scope to a given Eloquent query builder.
