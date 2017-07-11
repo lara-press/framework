@@ -291,9 +291,7 @@ class Post extends Eloquent
 
     public function getFeaturedImageSrc($size = 'large')
     {
-        $featuredImage = wp_get_attachment_image_src(get_post_thumbnail_id($this->ID), $size);
-
-        return !empty($featuredImage[0]) ? $featuredImage[0] : get_field('default_banner_image', 'option')['url'];
+        return wp_get_attachment_image_src(get_post_thumbnail_id($this->ID), $size);
     }
 
     public function getFeaturedImage($size = 'large')
