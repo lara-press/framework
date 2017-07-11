@@ -11,14 +11,14 @@ class FlushRewriteRules extends Command
      *
      * @var string
      */
-    protected $signature = 'wp:flush';
+    protected $signature = 'wp:clear';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Flush Rewrite Rules';
+    protected $description = 'Flush WordPress Rewrite Rules';
 
     /**
      * Execute the console command.
