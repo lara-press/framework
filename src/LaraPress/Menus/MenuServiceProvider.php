@@ -20,11 +20,14 @@ class MenuServiceProvider extends ServiceProvider {
      */
     public function register()
     {
-        foreach ($this->menus as &$menuTitle)
-        {
+        foreach ($this->menus as &$menuTitle) {
             $menuTitle = __($menuTitle);
         }
 
         register_nav_menus($this->menus);
+
+        $this->app->singleton('menus', function () {
+            return new MenuBuilder();
+        });
     }
 }
