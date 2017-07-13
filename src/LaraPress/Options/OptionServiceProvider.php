@@ -9,12 +9,9 @@ class OptionServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->app->bind(
-            'options',
-            function ($app) {
-                return new OptionManager;
-            }
-        );
+        $this->app->bind('options', function () {
+            return new OptionManager();
+        });
     }
 
     public function provides()
