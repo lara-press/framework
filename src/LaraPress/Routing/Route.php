@@ -57,15 +57,12 @@ class Route extends RouteBase {
     {
         $this->compileRoute();
 
-        foreach ($this->getValidators() as $validator)
-        {
-            if ( ! $includingMethod && $validator instanceof MethodValidator)
-            {
+        foreach ($this->getValidators() as $validator) {
+            if (! $includingMethod && $validator instanceof MethodValidator) {
                 continue;
             }
 
-            if ( ! $validator->matches($this, $request))
-            {
+            if (! $validator->matches($this, $request)) {
                 return false;
             }
         }

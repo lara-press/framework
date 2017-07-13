@@ -39,7 +39,7 @@ class Manager {
      */
     public function newMetaBox(array $params = [])
     {
-        return $this->container->make('LaraPress\MetaBox\MetaBox', $params);
+        return $this->container->make(MetaBox::class, $params);
     }
 
     public function register(MetaBox $metaBox)

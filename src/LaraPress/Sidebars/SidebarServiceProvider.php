@@ -9,7 +9,7 @@ class SidebarServiceProvider extends ServiceProvider {
     /**
      * An array of sidebars to be loaded as WordPress sidebars.
      *
-     * @see LaraPress\Sidebars\SidebarServiceProvider for proper structure
+     * @see \LaraPress\Sidebars\SidebarServiceProvider for proper structure
      *
      * @var array
      */
