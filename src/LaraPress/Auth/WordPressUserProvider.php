@@ -5,7 +5,8 @@ namespace LaraPress\Auth;
 use Illuminate\Auth\EloquentUserProvider;
 use Illuminate\Contracts\Auth\Authenticatable as UserContract;
 
-class WordPressUserProvider extends EloquentUserProvider {
+class WordPressUserProvider extends EloquentUserProvider
+{
 
     /**
      * Retrieve a user by by their unique identifier and "remember me" token.
@@ -36,10 +37,8 @@ class WordPressUserProvider extends EloquentUserProvider {
         // Eloquent User "model" that will be utilized by the Guard instances.
         $query = $this->createModel()->newQuery();
 
-        foreach ($credentials as $key => $value)
-        {
-            if ( ! str_contains($key, 'user_pass'))
-            {
+        foreach ($credentials as $key => $value) {
+            if ( ! str_contains($key, 'user_pass')) {
                 $query->where($key, $value);
             }
         }
