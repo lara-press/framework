@@ -4,7 +4,8 @@ namespace LaraPress\Hashing;
 
 use Illuminate\Support\ServiceProvider;
 
-class HashServiceProvider extends ServiceProvider {
+class HashServiceProvider extends ServiceProvider
+{
 
     /**
      * Indicates if loading of the provider is deferred.
@@ -20,13 +21,9 @@ class HashServiceProvider extends ServiceProvider {
      */
     public function register()
     {
-        $this->app->singleton(
-            'wordpress-hash',
-            function ()
-            {
-                return new WordPressHasher();
-            }
-        );
+        $this->app->singleton('wordpress-hash', function () {
+            return new WordPressHasher();
+        });
     }
 
     /**

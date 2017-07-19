@@ -222,16 +222,16 @@ class Router extends RouterBase
      * @param $action
      * @return Route
      */
-    protected function registerAdminRoute($methods, $uri, $action, $displayInSidebar = true)
+    protected function registerAdminRoute($methods, $uri, $action)
     {
         $url = $this->parseAdminUri($uri);
 
-        $route = $this->addRoute($methods, '/admin.php' . $url, $action);
+        $route = $this->addRoute($methods, 'cms/wp-admin/admin.php' . $url, $action);
 
         $uri = str_replace('-{id}', '', $uri);
 
-        $this->actions->listen('admin_menu', function () use ($uri, $route, $displayInSidebar) {
-            $this->addAdminMenuPage($uri, $route, $displayInSidebar);
+        $this->actions->listen('admin_menu', function () use ($uri, $route) {
+            $this->addAdminMenuPage($uri, $route);
         });
 
         return $route;

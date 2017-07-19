@@ -52,8 +52,7 @@ class PostTypeManager implements PostTypeManagerContract
         $postTypeSlug = strtolower(snake_case(class_basename($model)));
 
         if ($model instanceof CustomPostType) {
-            $singular =
-                property_exists($model, 'singular') ? $model->singular : str_replace(['-', '_'], ' ', $postTypeSlug);
+            $singular = property_exists($model, 'singular') ? $model->singular : str_replace(['-', '_'], ' ', $postTypeSlug);
 
             $plural = property_exists($model, 'plural')
                 ? $model->plural

@@ -22,25 +22,22 @@ class ShortcodeServiceProvider extends ServiceProvider
         /** @var Dispatcher $action */
         $action = $this->app['actions'];
 
-        $action->listen(
-            'init',
-            function () {
-                foreach ($this->shortcodes as $shortcode) {
+        $action->listen('init', function () {
+            foreach ($this->shortcodes as $shortcode) {
 
-                    add_shortcode($shortcode, function ($attributes, $content = null) use ($shortcode) {
+                add_shortcode($shortcode, function ($attributes, $content = null) use ($shortcode) {
 
-                        if ($this->hasRenderMethod($shortcode)) {
-                            return $this->{$this->makeRenderMethodName($shortcode)}($attributes);
-                        }
+                    if ($this->hasRenderMethod($shortcode)) {
+                        return $this->{$this->makeRenderMethodName($shortcode)}($attributes);
+                    }
 
-                        return view('shortcodes.' . $shortcode)->with([
-                            'attributes' => $attributes,
-                            'content'    => $content
-                        ]);
-                    });
-                }
+                    return view('shortcodes.'.$shortcode)->with([
+                        'attributes' => $attributes,
+                        'content'    => $content,
+                    ]);
+                });
             }
-        );
+        });
     }
 
     protected function hasRenderMethod($shortcode)
@@ -50,6 +47,6 @@ class ShortcodeServiceProvider extends ServiceProvider
 
     protected function makeRenderMethodName($shortcode)
     {
-        return camel_case($shortcode) . 'Shortcode';
+        return camel_case($shortcode).'Shortcode';
     }
 }

@@ -4,7 +4,8 @@ namespace LaraPress\Auth;
 
 use Illuminate\Support\ServiceProvider;
 
-class WordPressAuthServiceProvider extends ServiceProvider {
+class WordPressAuthServiceProvider extends ServiceProvider
+{
 
     /**
      * Bootstrap the application events.
@@ -13,33 +14,13 @@ class WordPressAuthServiceProvider extends ServiceProvider {
      */
     public function boot()
     {
-        $this->app['auth']->extend(
-            'wordpress',
-            function ($app)
-            {
-                return new Guard(
-                    new WordPressUserProvider($app['wordpress-hash'], $app['config']['auth.model']),
-                    $app['session.store']
-                );
-            }
-        );
-
-        //$this->bootCommands();
+        $this->app['auth']->extend('wordpress', function ($app) {
+            return new Guard(
+                new WordPressUserProvider($app['wordpress-hash'], $app['config']['auth.model']),
+                $app['session.store']
+            );
+        });
     }
-/*
-    public function bootCommands()
-    {
-        $this->app['wordpress-auth.console.config'] = $this->app->share(
-            function ($app)
-            {
-                return new Console\ConfigCommand();
-            }
-        );
-
-        $this->commands(
-            'wordpress-auth.console.config'
-        );
-    }*/
 
     /**
      * Register the service provider.

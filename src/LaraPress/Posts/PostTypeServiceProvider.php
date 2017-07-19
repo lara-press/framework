@@ -6,7 +6,6 @@ use Illuminate\Support\ServiceProvider;
 class PostTypeServiceProvider extends ServiceProvider
 {
 
-
     protected $postTypes = [];
 
     /**

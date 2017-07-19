@@ -68,6 +68,36 @@ if ( ! function_exists('filters')) {
     }
 }
 
+if ( ! function_exists('assets')) {
+    /**
+     * @return \LaraPress\Assets\Manager
+     */
+    function assets()
+    {
+        return app('assets');
+    }
+}
+
+if ( ! function_exists('post_types')) {
+    /**
+     * @return \LaraPress\Posts\PostTypeManager
+     */
+    function post_types()
+    {
+        return app('posts.types');
+    }
+}
+
+if ( ! function_exists('menus')) {
+    /**
+     * @return \LaraPress\Menus\MenuBuilder
+     */
+    function menus()
+    {
+        return app('menus');
+    }
+}
+
 if ( ! function_exists('options')) {
     /**
      * @param null $key
