@@ -4,7 +4,8 @@ namespace LaraPress\Filters;
 
 use Illuminate\Events\Dispatcher as EventsDispatcher;
 
-class Dispatcher extends EventsDispatcher {
+class Dispatcher extends EventsDispatcher
+{
 
     protected $registeredWpFilters = [];
 
@@ -14,25 +15,22 @@ class Dispatcher extends EventsDispatcher {
      * @param  string|array $events
      * @param  mixed        $listener
      * @param  int          $priority
-     * @param int           $acceptedArgs
+     * @param  int          $acceptedArgs
      */
     public function listen($events, $listener, $priority = 10, $acceptedArgs = 1)
     {
-        foreach ((array)$events as $filter)
-        {
-            $this->listeners[$filter][$priority][] = $this->makeListener($listener);
+        foreach ((array) $events as $filter) {
+            $this->listeners[$filter][] = $this->makeListener($listener);
 
             unset($this->sorted[$filter]);
 
-            if ( ! isset($this->registeredWpFilters[$filter]))
-            {
+            if ( ! isset($this->registeredWpFilters[$filter])) {
                 $this->registeredWpFilters[$filter] = true;
 
                 add_filter(
                     $filter,
-                    function () use ($filter)
-                    {
-                        return $this->fire($filter, func_get_args());
+                    function () use ($filter) {
+                        return $this->dispatch($filter, func_get_args());
                     },
                     $priority,
                     $acceptedArgs
@@ -50,12 +48,11 @@ class Dispatcher extends EventsDispatcher {
      *
      * @return array|null
      */
-    public function fire($event, $payload = [], $halt = false)
+    public function dispatch($event, $payload = [], $halt = false)
     {
         $this->firing[] = $event;
 
-        foreach ($this->getListeners($event) as $listener)
-        {
+        foreach ($this->getListeners($event) as $listener) {
             $payload = call_user_func_array($listener, (array) $payload);
         }
 

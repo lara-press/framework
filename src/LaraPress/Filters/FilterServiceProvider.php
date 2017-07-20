@@ -4,7 +4,8 @@ namespace LaraPress\Filters;
 
 use Illuminate\Support\ServiceProvider;
 
-class FilterServiceProvider extends ServiceProvider {
+class FilterServiceProvider extends ServiceProvider
+{
 
     /**
      * Register the service provider.
@@ -13,12 +14,8 @@ class FilterServiceProvider extends ServiceProvider {
      */
     public function register()
     {
-        $this->app->singleton(
-            'filters',
-            function ($app)
-            {
-                return new Dispatcher($app);
-            }
-        );
+        $this->app->singleton('filters', function ($app) {
+            return new Dispatcher($app);
+        });
     }
 }

@@ -14,25 +14,22 @@ class Dispatcher extends EventsDispatcher {
      * @param  string|array $events
      * @param  mixed        $listener
      * @param  int          $priority
-     *
-     * @param int           $acceptedArgs
+     * @param  int          $acceptedArgs
      */
     public function listen($events, $listener, $priority = 0, $acceptedArgs = 1)
     {
         foreach ((array)$events as $event)
         {
-            $this->listeners[$event][$priority][] = $this->makeListener($listener);
+            $this->listeners[$event][] = $this->makeListener($listener);
 
             unset($this->sorted[$event]);
 
-            if ( ! isset($this->registeredWpActions[$event]))
-            {
+            if ( ! isset($this->registeredWpActions[$event])) {
                 $this->registeredWpActions[$event] = true;
 
                 add_action(
                     $event,
-                    function () use ($event)
-                    {
+                    function () use ($event) {
                         return $this->fire($event, func_get_args());
                     },
                     $priority,
