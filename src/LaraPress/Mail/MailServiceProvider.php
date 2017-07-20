@@ -6,11 +6,6 @@ use Illuminate\Support\ServiceProvider;
 
 class MailServiceProvider extends ServiceProvider {
 
-    public function boot()
-    {
-        $this->loadViewsFrom(dirname(dirname(dirname(__DIR__))) . '/resources/views', 'larapress');
-    }
-
     /**
      * Register the service provider.
      *
