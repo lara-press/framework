@@ -1,5 +1,5 @@
 {
-  "name": "lara-press/framework",
+  "name": "skylerfenn/framework",
   "description": "The LaraPress framework.",
   "keywords": [
     "larapress",
@@ -24,7 +24,7 @@
   "require": {
     "php": ">=5.4",
     "composer/installers": "~1.0",
-    "laravel/framework": "5.3.*",
+    "laravel/framework": "5.4.*",
     "guzzlehttp/guzzle" : "~6.0",
     "laravelcollective/html": "5.3.*"
   },
