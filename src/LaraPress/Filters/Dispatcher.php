@@ -20,7 +20,7 @@ class Dispatcher extends EventsDispatcher
     public function listen($events, $listener, $priority = 10, $acceptedArgs = 1)
     {
         foreach ((array) $events as $filter) {
-            $this->listeners[$filter][] = $this->makeListener($listener);
+            $this->listeners[$filter][] = $listener;
 
             unset($this->sorted[$filter]);
 
