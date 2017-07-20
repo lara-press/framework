@@ -30,7 +30,7 @@ class Dispatcher extends EventsDispatcher {
                 add_action(
                     $event,
                     function () use ($event) {
-                        return $this->fire($event, func_get_args());
+                        return $this->dispatch($event, func_get_args());
                     },
                     $priority,
                     $acceptedArgs
