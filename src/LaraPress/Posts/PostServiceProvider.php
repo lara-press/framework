@@ -37,14 +37,14 @@ class PostServiceProvider extends ServiceProvider
 
     protected function registerPostManager()
     {
-        $this->app['posts'] = $this->app->share(function ($app) {
+        $this->app->singleton('posts', function ($app) {
             return new Repository($app);
         });
     }
 
     protected function registerPostTypeManager()
     {
-        $this->app['posts.types'] = $this->app->share(function ($app) {
+        $this->app->singleton('posts.types', function ($app) {
             return new PostTypeManager($app['actions']);
         });
     }

@@ -19,9 +19,8 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $bootstrappers = [
-        'Illuminate\Foundation\Bootstrap\DetectEnvironment',
+        'Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables',
         'Illuminate\Foundation\Bootstrap\LoadConfiguration',
-        'Illuminate\Foundation\Bootstrap\ConfigureLogging',
         'Illuminate\Foundation\Bootstrap\HandleExceptions',
         'Illuminate\Foundation\Bootstrap\RegisterFacades',
         'Illuminate\Foundation\Bootstrap\RegisterProviders',
@@ -88,7 +87,7 @@ class Kernel extends HttpKernel
             $response = $this->renderException($request, $e);
         }
 
-        $this->app['events']->fire('kernel.handled', [$request, $response]);
+        $this->app['events']->dispatch('kernel.handled', [$request, $response]);
 
         return $response;
     }
