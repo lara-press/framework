@@ -19,7 +19,7 @@ class RoutingServiceProvider extends BaseRoutingServiceProvider
 
         $this->app['actions']->listen('init', function () {
             if (is_admin()) {
-                app('url')->forceRootUrl($_SERVER['WP_HOME']);
+                app('url')->forceRootUrl($_SERVER['APP_URL']);
             }
         });
 
