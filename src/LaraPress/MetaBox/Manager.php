@@ -63,7 +63,7 @@ class Manager
 
         if (is_callable($metaBox->getInputHandler())) {
             $this->actions->listen('save_post', function ($postId, $post, $isUpdate) use ($metaBox, $app) {
-                if ($post->post_type !== $metaBox->getPostType() || defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+                if (get_post_type($postId) !== $metaBox->getPostType() || defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
                     return;
                 }
                 $post = Post::resolveWordPressPostToModel($post);

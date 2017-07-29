@@ -4,7 +4,8 @@ namespace LaraPress\Actions;
 
 use Illuminate\Events\Dispatcher as EventsDispatcher;
 
-class Dispatcher extends EventsDispatcher {
+class Dispatcher extends EventsDispatcher
+{
 
     protected $registeredWpActions = [];
 
@@ -18,9 +19,8 @@ class Dispatcher extends EventsDispatcher {
      */
     public function listen($events, $listener, $priority = 0, $acceptedArgs = 1)
     {
-        foreach ((array)$events as $event)
-        {
-            $this->listeners[$event][] = $listener;
+        foreach ((array) $events as $event) {
+            $this->listeners[$event][] = $this->makeListener($listener);
 
             unset($this->sorted[$event]);
 
