@@ -35,7 +35,7 @@ class RoutingServiceProvider extends BaseRoutingServiceProvider
 
             /** @var Route $route */
             foreach ($routeCollection->getRoutes() as $route) {
-                if ($requestedUrl === url($route->getUri())) {
+                if ($requestedUrl === url($route->uri())) {
                     return false;
                 }
             }
