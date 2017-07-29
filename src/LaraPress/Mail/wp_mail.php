@@ -10,7 +10,7 @@ if ( ! function_exists('wp_mail'))
         list($to, $subject, $message, $headers, $attachments) =
             array_values(apply_filters('wp_mail', compact('to', 'subject', 'message', 'headers', 'attachments')));
 
-        $mailer->send(
+        return $mailer->send(
             'larapress::email',
             ['content' => $message],
             function (\Illuminate\Mail\Message $message) use ($to, $subject, $headers, $attachments)

@@ -15,6 +15,7 @@ class Application extends BaseApplication
     protected function registerBaseServiceProviders()
     {
         $this->register(new \Illuminate\Events\EventServiceProvider($this));
+        $this->register(new \Illuminate\Log\LogServiceProvider($this));
         $this->register(new \LaraPress\Actions\ActionServiceProvider($this));
         $this->register(new \LaraPress\Filters\FilterServiceProvider($this));
         $this->register(new \LaraPress\Routing\RoutingServiceProvider($this));
