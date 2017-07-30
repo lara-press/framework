@@ -6,9 +6,14 @@ class MenuBuilder
 {
 
     protected $menuItems;
+    protected $activePostId = false;
 
     public function find($menuId)
     {
+        if (app()->isShared('post')) {
+            $this->activePostId = app('post')->ID;
+        }
+
         $this->menuItems = $this->getMenuItems($menuId);
 
         return $this->transformMenu($this->getTopLevelMenuItems());
@@ -19,14 +24,14 @@ class MenuBuilder
         return array_map(function ($menuItem) {
             return new MenuItem($menuItem, $this->transformMenu(
                 $this->getChildMenuItems($menuItem->ID)
-            ));
+            ), $this->activePostId == $menuItem->object_id);
         }, $menuItems);
     }
 
     protected function getTopLevelMenuItems()
     {
         return array_where($this->menuItems, function ($menuItem) {
-            return !$menuItem->menu_item_parent;
+            return ! $menuItem->menu_item_parent;
         });
     }
 
@@ -41,7 +46,7 @@ class MenuBuilder
     {
         $menuLocations = get_nav_menu_locations();
 
-        if (!array_has($menuLocations, $menuId)) {
+        if ( ! array_has($menuLocations, $menuId)) {
             abort(500, '"' . $menuId . '" must be registered and then assigned a menu in WordPress.');
         }
 
