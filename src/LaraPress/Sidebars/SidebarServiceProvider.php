@@ -46,7 +46,7 @@ class SidebarServiceProvider extends ServiceProvider {
 
         if (empty($sidebar['id']))
         {
-            $sidebar['id'] = snake_case(preg_replace('/[^a-zA-Z]/', '-', $sidebar['name']));
+            $sidebar['id'] = snake_case(preg_replace('/[^a-zA-Z0-9]/', '-', $sidebar['name']));
         }
 
         return $sidebar;
