@@ -24,9 +24,9 @@
   "require": {
     "php": ">=5.4",
     "composer/installers": "~1.0",
-    "laravel/framework": "5.4.*",
+    "laravel/framework": "5.5.*",
     "guzzlehttp/guzzle" : "~6.0",
-    "laravelcollective/html": "5.4.*"
+    "laravelcollective/html": "5.5.*"
   },
   "autoload": {
     "files": [
