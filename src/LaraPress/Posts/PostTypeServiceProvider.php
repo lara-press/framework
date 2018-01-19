@@ -23,7 +23,7 @@ class PostTypeServiceProvider extends ServiceProvider
                 function ($page_templates) use ($postType) {
                     $laraPressTemplates = [];
 
-                    foreach ((new $postType)->getAvailableTemplates() as $key => $template) {
+                    foreach ($postType::getAvailableTemplates() as $key => $template) {
                         if (is_int($key)) {
                             $key = $template;
                             $template = ucwords(str_replace('-', ' ', $template));
