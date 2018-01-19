@@ -52,7 +52,7 @@ class Post extends Eloquent
         return DB_TABLE_PREFIX . 'posts';
     }
 
-    public function getAvailableTemplates()
+    public static function getAvailableTemplates()
     {
         return ['one-column'];
     }
