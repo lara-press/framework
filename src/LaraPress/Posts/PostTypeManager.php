@@ -60,7 +60,7 @@ class PostTypeManager implements PostTypeManagerContract
                     str_replace(['-', '_'], ' ', $postTypeSlug)
                 );
 
-            $postTypeData = $model->customPostTypeData();
+            $postTypeData = $model::customPostTypeData();
 
             if ( ! is_array($postTypeData)) {
                 $postTypeData = [];
