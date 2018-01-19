@@ -54,7 +54,7 @@ class Post extends Eloquent
 
     public static function getAvailableTemplates()
     {
-        return ['one-column'];
+        return [];
     }
 
     /**
