@@ -9,6 +9,8 @@ class Post extends Eloquent
 {
     public $timestamps = false;
 
+    public $templates = [];
+
     protected $primaryKey = 'ID';
 
     protected $dates = ['post_modified', 'post_modified_gmt', 'post_date', 'post_date_gmt'];
@@ -309,5 +311,10 @@ class Post extends Eloquent
         }
 
         return get_permalink($this->ID);
+    }
+
+    public function getTemplateAttribute()
+    {
+        return get_page_template_slug($this->ID);
     }
 }
