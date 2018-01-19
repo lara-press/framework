@@ -52,6 +52,11 @@ class Post extends Eloquent
         return DB_TABLE_PREFIX . 'posts';
     }
 
+    public static function getAvailableTemplates()
+    {
+        return [];
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -309,5 +314,10 @@ class Post extends Eloquent
         }
 
         return get_permalink($this->ID);
+    }
+
+    public function getTemplateAttribute()
+    {
+        return get_page_template_slug($this->ID);
     }
 }

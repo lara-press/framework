@@ -11,5 +11,5 @@ interface CustomPostType {
      * @see register_post_type
      * @return array
      */
-    public function customPostTypeData();
+    public static function customPostTypeData();
 }
