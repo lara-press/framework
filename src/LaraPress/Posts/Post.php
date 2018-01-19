@@ -9,8 +9,6 @@ class Post extends Eloquent
 {
     public $timestamps = false;
 
-    public $templates = [];
-
     protected $primaryKey = 'ID';
 
     protected $dates = ['post_modified', 'post_modified_gmt', 'post_date', 'post_date_gmt'];
@@ -52,6 +50,11 @@ class Post extends Eloquent
     public function getTable()
     {
         return DB_TABLE_PREFIX . 'posts';
+    }
+
+    public function getAvailableTemplates()
+    {
+        return ['one-column'];
     }
 
     /**
