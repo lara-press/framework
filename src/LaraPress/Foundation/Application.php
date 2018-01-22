@@ -19,6 +19,7 @@ class Application extends BaseApplication
         $this->register(new \LaraPress\Actions\ActionServiceProvider($this));
         $this->register(new \LaraPress\Filters\FilterServiceProvider($this));
         $this->register(new \LaraPress\Routing\RoutingServiceProvider($this));
+        $this->register(new \LaraPress\Foundation\Providers\PublishServiceProvider($this));
     }
 
     /**
