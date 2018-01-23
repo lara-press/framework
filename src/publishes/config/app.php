@@ -182,14 +182,15 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\TaxonomyServiceProvider::class,
-        App\Providers\PostTypeServiceProvider::class,
-        App\Providers\ViewServiceProvider::class,
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+        App\Providers\TaxonomyServiceProvider::class,
+        App\Providers\PostTypeServiceProvider::class,
+        App\Providers\ViewServiceProvider::class,
         App\Providers\MenuServiceProvider::class,
         App\Providers\SidebarServiceProvider::class,
         App\Providers\WidgetServiceProvider::class,

@@ -14,5 +14,5 @@
 /** @var LaraPress\Routing\Router $router */
 
 $router->get('/', function () {
-    return view('app');
+    return view('welcome');
 });

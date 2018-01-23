@@ -24,6 +24,7 @@ class PublishServiceProvider extends ServiceProvider
                 'Providers/ShortcodeServiceProvider.php',
                 'Providers/SidebarServiceProvider.php',
                 'Providers/TaxonomyServiceProvider.php',
+                'Providers/ViewServiceProvider.php',
                 'Providers/WidgetServiceProvider.php',
                 'Widgets/ExampleWidget.php',
             ], 'app', 'app_path'),
@@ -49,6 +50,7 @@ class PublishServiceProvider extends ServiceProvider
             ], 'config', 'config_path'),
             $this->prepareFiles([
                 'wp-config.php',
+                'index.php',
                 'content/mu-plugins/larapress.php',
                 'content/themes/larapress/index.php',
                 'content/themes/larapress/screenshot.png',
