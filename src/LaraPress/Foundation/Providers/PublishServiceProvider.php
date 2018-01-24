@@ -60,9 +60,10 @@ class PublishServiceProvider extends ServiceProvider
             $this->prepareFiles([
                 'views/welcome.blade.php',
             ], 'resources', 'resource_path'), [
-            $this->publishesDirectory . '/bootstrap/app.php'            => app_path('../bootstrap/app.php'),
-            $this->publishesDirectory . '/routes/web.php'               => app_path('../routes/web.php'),
-            $this->publishesDirectory . '/tests/CreatesApplication.php' => app_path('../tests/CreatesApplication.php'),
+            $this->publishesDirectory . '/bootstrap/app.php' => app_path('../bootstrap/app.php'),
+            $this->publishesDirectory . '/routes/web.php'    => app_path('../routes/web.php'),
+            $this->publishesDirectory . '/laravel-tests/CreatesApplication.php'
+                                                             => app_path('../tests/CreatesApplication.php'),
         ]);
 
         $this->publishes(array_merge($base, $optional), 'larapress');
