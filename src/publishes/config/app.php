@@ -173,7 +173,6 @@ return [
         LaraPress\Auth\WordPressAuthServiceProvider::class,
         LaraPress\Hashing\HashServiceProvider::class,
         LaraPress\Posts\PostServiceProvider::class,
-        LaraPress\Html\HtmlServiceProvider::class,
         LaraPress\Posts\TaxonomyServiceProvider::class,
         LaraPress\Assets\AssetServiceProvider::class,
         LaraPress\MetaBox\MetaBoxServiceProvider::class,
@@ -254,9 +253,6 @@ return [
         'Query'        => LaraPress\Support\Facades\Query::class,
         'Taxonomy'     => LaraPress\Support\Facades\Taxonomy::class,
         'Asset'        => LaraPress\Support\Facades\Asset::class,
-
-        'Form' => Collective\Html\FormFacade::class,
-        'Html' => Collective\Html\HtmlFacade::class,
     ],
 
 ];
