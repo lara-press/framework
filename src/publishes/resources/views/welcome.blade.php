@@ -15,33 +15,32 @@
     <!-- Styles -->
     <style type="text/css">
 
-        html, body, main {
-            height: 100%;
+        html, body {
+            height: 100vh;
             margin: 0;
             padding: 0;
             font-family: 'Roboto', sans-serif;
         }
 
-        main {
+        body, main {
             display: flex;
             flex-direction: column;
+            flex: 1 0 auto;
             align-items: center;
             justify-content: center;
         }
 
         main, footer {
-            padding: 15px;
-            box-sizing: border-box;
+            padding: 1rem;
         }
 
         img.logo {
             max-width: 100%;
-            align-self: center;
         }
 
         h3.tag-line {
             font-weight: 300;
-            margin: 2rem 15px;
+            margin: 2rem 1rem;
         }
 
         ul.nav {
@@ -54,18 +53,14 @@
         ul.nav li a {
             display: inline-block;
             background: #F68D3E;
-            border-radius: 4px;
-            padding: 15px;
-            margin: 0 5px;
+            border-radius: .25rem;
+            padding: 1rem;
+            margin: 0 .5rem;
             color: #FFFFFF;
             text-decoration: none;
         }
 
         footer {
-            position: fixed;
-            left: 0;
-            right: 0;
-            bottom: 0;
             font-size: 13px;
             text-align: center;
         }
