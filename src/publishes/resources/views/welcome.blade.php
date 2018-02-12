@@ -5,13 +5,14 @@
 
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>{{ wp_title('|', false, 'right') }} {{ bloginfo( 'name' ) }}</title>
 
-    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <!-- Fonts -->
     <link href='https://fonts.googleapis.com/css?family=Roboto:300' rel='stylesheet' type='text/css'>
 
+    <!-- Styles -->
     <style type="text/css">
 
         html, body, main {
@@ -92,8 +93,8 @@
     <h3 class="tag-line">Develop with the popularity of WordPress and the power of Laravel</h3>
 
     <ul class="nav">
-        <li><a href="https://github.com/lara-press/docs/tree/5.5" target="_blank">Documentation</a></li>
-        <li><a href="http://github.com/lara-press/larapress" target="_blank">GitHub</a></li>
+        <li><a href="https://github.com/lara-press/docs" target="_blank">Documentation</a></li>
+        <li><a href="https://github.com/lara-press/framework" target="_blank">GitHub</a></li>
     </ul>
 
 </main>
