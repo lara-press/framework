@@ -320,4 +320,24 @@ class Post extends Eloquent
     {
         return get_page_template_slug($this->ID);
     }
+    
+    public function scopeWhereMeta(Builder $query, $key, $value = null)
+    {
+        return $query->whereHas('meta', $this->getMetaCallback($key, $value));
+    }
+
+    public function scopeOrWhereMeta(Builder $query, $key, $value = null)
+    {
+        return $query->orWhereHas('meta', $this->getMetaCallback($key, $value));
+    }
+
+    private function getMetaCallback($key, $value = null)
+    {
+        return function (Builder $query) use ($key, $value) {
+            $query->where('meta_key', $key);
+            if ($value) {
+                $query->where('meta_value', $value);
+            }
+        };
+    }
 }
