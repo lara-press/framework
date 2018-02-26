@@ -340,4 +340,26 @@ class Post extends Eloquent
             }
         };
     }
+
+    public function scopeWhereTerm(Builder $query, $slug, $taxonomy = null)
+    {
+        return $query->whereHas('terms', $this->getTermCallback($slug, $taxonomy));
+    }
+
+    public function scopeOrWhereTerm(Builder $query, $slug, $taxonomy = null)
+    {
+        return $query->whereHas('terms', $this->getTermCallback($slug, $taxonomy));
+    }
+
+    private function getTermCallback($slug, $taxonomy = null)
+    {
+        return function (Builder $query) use ($slug, $taxonomy) {
+            $query->where('slug', $slug);
+            if ($taxonomy) {
+                $query->whereHas('taxonomies', function (Builder $query) use ($taxonomy) {
+                    $query->where('taxonomy', $taxonomy);
+                });
+            }
+        };
+    }
 }
