@@ -60,6 +60,7 @@ class PublishServiceProvider extends ServiceProvider
             $this->prepareFiles([
                 'views/welcome.blade.php',
             ], 'resources', 'resource_path'), [
+            $this->publishesDirectory . '/artisan' => app_path('../artisan'),
             $this->publishesDirectory . '/bootstrap/app.php' => app_path('../bootstrap/app.php'),
             $this->publishesDirectory . '/routes/web.php'    => app_path('../routes/web.php'),
             $this->publishesDirectory . '/laravel-tests/CreatesApplication.php'
