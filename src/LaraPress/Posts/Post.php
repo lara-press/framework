@@ -348,7 +348,7 @@ class Post extends Eloquent
 
     public function scopeOrWhereTerm(Builder $query, $slug, $taxonomy = null)
     {
-        return $query->whereHas('terms', $this->getTermCallback($slug, $taxonomy));
+        return $query->orWhereHas('terms', $this->getTermCallback($slug, $taxonomy));
     }
 
     private function getTermCallback($slug, $taxonomy = null)
