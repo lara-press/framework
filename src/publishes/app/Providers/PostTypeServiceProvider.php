@@ -8,6 +8,6 @@ class PostTypeServiceProvider extends ServiceProvider
 {
     protected $postTypes = [
         \App\Page::class,
-        \App\Post::class
+        \App\Post::class,
     ];
 }
