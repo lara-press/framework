@@ -24,7 +24,7 @@ class MenuBuilder
         return array_map(function ($menuItem) {
             return new MenuItem($menuItem, $this->transformMenu(
                 $this->getChildMenuItems($menuItem->ID)
-            ), $this->activePostId == $menuItem->object_id);
+            ), request()->url() . '/' === $menuItem->url);
         }, $menuItems);
     }
 
