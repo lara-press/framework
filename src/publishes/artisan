@@ -1,6 +1,20 @@
 #!/usr/bin/env php
 <?php
 
+define('LARAVEL_START', microtime(true));
+
+// WordPress requirement
+if(file_exists(__DIR__ . '/public/cms/wp-blog-header.php')) {
+    /* Wordpress :( */
+    $_SERVER['SERVER_PROTOCOL'] = null;
+    $_SERVER['REQUEST_METHOD'] = null;
+    $_SERVER['HTTP_HOST'] = null;
+    require(__DIR__ . '/public/cms/wp-blog-header.php');
+} else {
+    echo 'WordPress not installed. Was the "johnpbloch/wordpress" package or `public/cms` folder removed?' . PHP_EOL;
+    return;
+}
+
 /*
 |--------------------------------------------------------------------------
 | Register The Auto Loader
@@ -13,15 +27,9 @@
 |
 */
 
-/* Wordpress :( */
-$_SERVER['SERVER_PROTOCOL'] = null;
-$_SERVER['REQUEST_METHOD'] = null;
+require __DIR__.'/vendor/autoload.php';
 
-// LaraPress requirement
-if(!file_exists(__DIR__ . '/public/cms/wp-blog-header.php')) {
-    echo "WordPress hasn't been installed yet. Please run 'composer install'.";
-}
-require(__DIR__ . '/public/cms/wp-blog-header.php');
+$app = require_once __DIR__.'/bootstrap/app.php';
 
 /*
 |--------------------------------------------------------------------------
