@@ -34,6 +34,7 @@ class PostTypeManager implements PostTypeManagerContract
 
         $this->actions->listen('init', function () use ($model) {
             $this->makeCustomPostType($model);
+            $this->makeAdminColumns($model);
         });
     }
 
@@ -49,7 +50,7 @@ class PostTypeManager implements PostTypeManagerContract
 
     protected function makeCustomPostType(Post $model)
     {
-        $postTypeSlug = strtolower(snake_case(class_basename($model)));
+        $postTypeSlug = $model::getCustomPostTypeSlug();
 
         if ($model instanceof CustomPostType) {
             $singular = property_exists($model, 'singular') ? $model->singular : str_replace(['-', '_'], ' ', $postTypeSlug);
@@ -128,5 +129,33 @@ class PostTypeManager implements PostTypeManagerContract
             ],
             $args
         );
+    }
+
+    /**
+     * @param Post $model
+     */
+    protected function makeAdminColumns(Post $model)
+    {
+        $customPostTypeSlug = $model::getCustomPostTypeSlug();
+        $newColumns = $model::getAdminColumns();
+
+        filters()->listen("manage_{$customPostTypeSlug}_posts_columns", function ($columns) use ($newColumns) {
+            foreach ($newColumns as $key => $column) {
+                if ($column === false) {
+                    unset($columns[$key]);
+                } else {
+                    $columns[$key] = $column->label;
+                }
+            }
+
+            return $columns;
+        });
+
+        filters()->listen("manage_{$customPostTypeSlug}_posts_custom_column", function ($key, $postId)
+        use ($newColumns) {
+            if (array_key_exists($key, $newColumns) && $newColumns[$key] !== false) {
+                echo $newColumns[$key]->getValue($postId);
+            }
+        }, 10, 2);
     }
 }

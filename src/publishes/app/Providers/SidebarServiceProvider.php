@@ -38,7 +38,11 @@ class SidebarServiceProvider extends BaseSidebarServiceProvider
         ]);
     }
 
-    public function inputHandler(Post $post, Request $request)
+    /**
+     * @param Post    $post
+     * @param Request $request
+     */
+    public function inputHandler($post, Request $request)
     {
         $this->validate($request, [
             'sidebar' => 'in:' . implode(',', array_keys($this->getSidebarOptions())),

@@ -4,6 +4,7 @@ namespace LaraPress\Posts;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model as Eloquent;
+use LaraPress\Admin\Column;
 
 class Post extends Eloquent
 {
@@ -47,14 +48,27 @@ class Post extends Eloquent
         return self::where('post_name', $slug)->get()->first();
     }
 
-    public function getTable()
+    public static function getCustomPostTypeSlug()
     {
-        return DB_TABLE_PREFIX . 'posts';
+        return strtolower(snake_case(class_basename(static::class)));
+    }
+
+    /**
+     * @return Column[]
+     */
+    public static function getAdminColumns()
+    {
+        return [];
     }
 
     public static function getAvailableTemplates()
     {
         return [];
+    }
+
+    public function getTable()
+    {
+        return DB_TABLE_PREFIX . 'posts';
     }
 
     /**
