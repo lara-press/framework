@@ -85,7 +85,7 @@ class Post extends Eloquent
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function terms()
     {
@@ -333,5 +333,47 @@ class Post extends Eloquent
     public function getTemplateAttribute()
     {
         return get_page_template_slug($this->ID);
+    }
+
+    public function scopeWhereMeta(Builder $query, $key, $value = null, $operator = '=')
+    {
+        return $query->whereHas('meta', $this->getMetaCallback($key, $value, $operator));
+    }
+
+    public function scopeOrWhereMeta(Builder $query, $key, $value = null, $operator = '=')
+    {
+        return $query->orWhereHas('meta', $this->getMetaCallback($key, $value, $operator));
+    }
+
+    private function getMetaCallback($key, $value = null, $operator = '=')
+    {
+        return function (Builder $query) use ($key, $value, $operator) {
+            $query->where('meta_key', $key);
+            if ($value) {
+                $query->where('meta_value', $operator, $value);
+            }
+        };
+    }
+
+    public function scopeWhereTerm(Builder $query, $slug, $taxonomy = null)
+    {
+        return $query->whereHas('terms', $this->getTermCallback($slug, $taxonomy));
+    }
+
+    public function scopeOrWhereTerm(Builder $query, $slug, $taxonomy = null)
+    {
+        return $query->orWhereHas('terms', $this->getTermCallback($slug, $taxonomy));
+    }
+
+    private function getTermCallback($slug, $taxonomy = null)
+    {
+        return function (Builder $query) use ($slug, $taxonomy) {
+            $query->where('slug', $slug);
+            if ($taxonomy) {
+                $query->whereHas('taxonomies', function (Builder $query) use ($taxonomy) {
+                    $query->where('taxonomy', $taxonomy);
+                });
+            }
+        };
     }
 }
