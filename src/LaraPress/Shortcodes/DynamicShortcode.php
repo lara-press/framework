@@ -2,16 +2,12 @@
 
 namespace LaraPress\Shortcodes;
 
-abstract class DynamicShortcode
+interface DynamicShortcode
 {
-    abstract public static function key();
+    /**
+     * @return Shortcode[]
+     */
+    public function shortcodes();
 
-    abstract public function shortcodes();
-
-    abstract public function render($shortcode, $attributes, $content);
-
-    protected function getIdFromShortcode($shortcode)
-    {
-        return str_replace(static::key(), '', $shortcode);
-    }
+    public function render(Shortcode $shortcode);
 }
