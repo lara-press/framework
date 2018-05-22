@@ -15,6 +15,11 @@ class Shortcode
         $this->content = $content;
     }
 
+    public function getAttribute($attribute)
+    {
+        return array_get($this->attributes, $attribute);
+    }
+
     /**
      * @param $attributes
      * @return $this|Shortcode
