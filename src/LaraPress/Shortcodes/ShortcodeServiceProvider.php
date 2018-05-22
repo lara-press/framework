@@ -33,7 +33,7 @@ class ShortcodeServiceProvider extends ServiceProvider
             $view = 'shortcodes.' . $shortcode;
 
             if (view()->exists($view)) {
-                view($view)->with([
+                return view($view)->with([
                     'attributes' => $attributes,
                     'content'    => $content,
                 ]);
