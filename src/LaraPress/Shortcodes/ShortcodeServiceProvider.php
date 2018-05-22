@@ -9,35 +9,47 @@ class ShortcodeServiceProvider extends ServiceProvider
 {
     protected $shortcodes = [];
 
-    /**
-     * Register any application services.
-     * This service provider is a great spot to register your various container
-     * bindings with the application. As you can see, we are registering our
-     * "Registrar" implementation here. You can add your own bindings too!
-     *
-     * @return void
-     */
+    protected $dynamicShortcodes = [];
+
     public function register()
     {
-        /** @var Dispatcher $action */
-        $action = $this->app['actions'];
-
-        $action->listen('init', function () {
+        actions()->listen('init', function () {
             foreach ($this->shortcodes as $shortcode) {
-
-                add_shortcode($shortcode, function ($attributes, $content = null) use ($shortcode) {
-
-                    if ($this->hasRenderMethod($shortcode)) {
-                        return $this->{$this->makeRenderMethodName($shortcode)}($attributes);
-                    }
-
-                    return view('shortcodes.'.$shortcode)->with([
-                        'attributes' => $attributes,
-                        'content'    => $content,
-                    ]);
-                });
+                $this->registerShortcodes($shortcode);
+            }
+            foreach ($this->dynamicShortcodes as $dynamicShortcode) {
+                $this->registerDynamicShortcodes(app($dynamicShortcode));
             }
         });
+    }
+
+    public function registerShortcodes($shortcode)
+    {
+        add_shortcode($shortcode, function ($attributes, $content = null) use ($shortcode) {
+            if ($this->hasRenderMethod($shortcode)) {
+                return $this->{$this->makeRenderMethodName($shortcode)}($attributes);
+            }
+
+            $view = 'shortcodes.' . $shortcode;
+
+            if (view()->exists($view)) {
+                view($view)->with([
+                    'attributes' => $attributes,
+                    'content'    => $content,
+                ]);
+            }
+
+            return '[' . $shortcode . ']';
+        });
+    }
+
+    public function registerDynamicShortcodes(DynamicShortcode $dynamicShortcode)
+    {
+        foreach ($dynamicShortcode->shortcodes() as $shortcode) {
+            add_shortcode($shortcode, function ($attributes, $content = null) use ($dynamicShortcode, $shortcode) {
+                return $dynamicShortcode->render($shortcode, $attributes, $content);
+            });
+        }
     }
 
     protected function hasRenderMethod($shortcode)
@@ -47,6 +59,6 @@ class ShortcodeServiceProvider extends ServiceProvider
 
     protected function makeRenderMethodName($shortcode)
     {
-        return camel_case($shortcode).'Shortcode';
+        return camel_case($shortcode) . 'Shortcode';
     }
 }
