@@ -23,7 +23,7 @@ class ShortcodeServiceProvider extends ServiceProvider
         });
     }
 
-    public function registerShortcodes($shortcode)
+    protected function registerShortcodes($shortcode)
     {
         add_shortcode($shortcode, function ($attributes, $content = null) use ($shortcode) {
             if ($this->hasRenderMethod($shortcode)) {
@@ -43,7 +43,7 @@ class ShortcodeServiceProvider extends ServiceProvider
         });
     }
 
-    public function registerDynamicShortcodes(DynamicShortcode $dynamicShortcode)
+    protected function registerDynamicShortcodes(DynamicShortcode $dynamicShortcode)
     {
         foreach ($dynamicShortcode->shortcodes() as $shortcode) {
             add_shortcode($shortcode, function ($attributes, $content = null) use ($dynamicShortcode, $shortcode) {
