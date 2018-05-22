@@ -166,6 +166,7 @@ class Router extends RouterBase
         $menuTitle = isset($routeAction['menuTitle']) ? $routeAction['menuTitle'] : $title;
         $icon = isset($routeAction['icon']) ? $routeAction['icon'] : '';
         $position = isset($routeAction['position']) ? $routeAction['position'] : null;
+        $parentSlug = isset($routeAction['parent_slug']) ? $routeAction['parent_slug'] : null;
 
         $slug = str_replace('{id}-', '', $slug);
 
@@ -177,10 +178,10 @@ class Router extends RouterBase
 
         remove_menu_page($slug);
 
-        if (count($uri) == 0) {
+        if (count($uri) == 0 && !$parentSlug) {
             add_menu_page($pageTitle, $menuTitle, $capability, $slug, $response, $icon, $position);
         } else {
-            add_submenu_page(array_pop($uri), $pageTitle, $menuTitle, $capability, $slug, $response);
+            add_submenu_page($parentSlug ?: array_pop($uri), $pageTitle, $menuTitle, $capability, $slug, $response);
         }
     }
 
@@ -226,7 +227,9 @@ class Router extends RouterBase
     {
         $url = $this->parseAdminUri($uri);
 
-        $route = $this->addRoute($methods, 'cms/wp-admin/admin.php' . $url, $action);
+        $adminPage = array_get($action, 'parent_slug') ?: 'admin.php';
+
+        $route = $this->addRoute($methods, 'cms/wp-admin/' . $adminPage . $url, $action);
 
         $uri = str_replace('-{id}', '', $uri);
 
