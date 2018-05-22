@@ -3,7 +3,6 @@
 namespace LaraPress\Shortcodes;
 
 use Illuminate\Support\ServiceProvider;
-use LaraPress\Actions\Dispatcher;
 
 class ShortcodeServiceProvider extends ServiceProvider
 {
