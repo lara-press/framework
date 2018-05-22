@@ -47,7 +47,7 @@ class ShortcodeServiceProvider extends ServiceProvider
         foreach ($dynamicShortcode->shortcodes() as $shortcode) {
             add_shortcode(
                 $shortcode->shortcode,
-                function ($attributes, $content = null) use ($dynamicShortcode, $shortcode) {
+                function ($attributes, $content = '') use ($dynamicShortcode, $shortcode) {
                     return $dynamicShortcode->render(
                         $shortcode->attributes($attributes)->setContent($content)
                     );
