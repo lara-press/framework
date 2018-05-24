@@ -13,6 +13,6 @@
 
 /** @var LaraPress\Routing\Router $router */
 
-$router->get('/', function () {
-    return view('welcome');
-});
+$router->get('/', 'PageController@index');
+$router->handle(\App\Page::class, 'PageController@index');
+$router->handle(\App\Post::class, 'PostController@index');
