@@ -47,9 +47,9 @@ class MenuBuilder
         $menuLocations = get_nav_menu_locations();
 
         if ( ! array_has($menuLocations, $menuId)) {
-            abort(500, '"' . $menuId . '" must be registered and then assigned a menu in WordPress.');
+            return []; // id must be registered and then assigned a menu in WordPress.
         }
 
-        return wp_get_nav_menu_items($menuLocations[$menuId]);
+        return wp_get_nav_menu_items($menuLocations[$menuId]) ?: [];
     }
 }
