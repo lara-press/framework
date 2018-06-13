@@ -13,7 +13,7 @@ class PageController extends Controller
 
     public function index()
     {
-        if (get_option('show_on_front') === 'posts') {
+        if (get_option('show_on_front') === 'posts' || is_home()) {
             return $this->postController->index();
         }
 
