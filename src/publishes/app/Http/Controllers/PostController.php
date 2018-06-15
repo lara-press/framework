@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 class PostController extends Controller
 {
-    public function index()
+    public function handle()
     {
         if (is_home()) {
             return view('welcome');

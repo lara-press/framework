@@ -13,6 +13,6 @@
 
 /** @var LaraPress\Routing\Router $router */
 
-$router->any('/', 'PageController@index');
-$router->handle(\App\Page::class, 'PageController@index');
-$router->handle(\App\Post::class, 'PostController@index');
+$router->any('/', 'PageController@handle');
+$router->handle(\App\Page::class, 'PageController@handle');
+$router->handle(\App\Post::class, 'PostController@handle');

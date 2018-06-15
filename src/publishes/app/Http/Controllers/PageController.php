@@ -4,17 +4,10 @@ namespace App\Http\Controllers;
 
 class PageController extends Controller
 {
-    protected $postController;
-
-    function __construct(PostController $postController)
-    {
-        $this->postController = $postController;
-    }
-
-    public function index()
+    public function handle()
     {
         if (get_option('show_on_front') === 'posts' || is_home()) {
-            return $this->postController->index();
+            return app()->call([app(PostController::class), 'handle']);
         }
 
         if (is_front_page()) {
