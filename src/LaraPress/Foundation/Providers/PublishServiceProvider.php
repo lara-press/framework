@@ -17,6 +17,7 @@ class PublishServiceProvider extends ServiceProvider
             $this->prepareFiles([
                 'Events/Event.php',
                 'Repositories/Repository.php',
+                'Repositories/PostRepository.php',
                 'Http/Controllers/AdminController.php',
                 'Http/Requests/Request.php',
                 'Providers/AdminPageServiceProvider.php',
