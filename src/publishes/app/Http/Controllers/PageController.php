@@ -9,15 +9,12 @@ class PageController extends Controller
     function __construct(PostController $postController)
     {
         $this->postController = $postController;
-    }
 
-    public function index()
-    {
-        if (get_option('show_on_front') === 'posts') {
-            return $this->postController->index();
-        }
+        if (is_front_page() || is_home()) {
+            if (is_home()) {
+                return app()->call([app(PostController::class), 'handle']);
+            }
 
-        if (is_front_page()) {
             return view('welcome');
         }
 
