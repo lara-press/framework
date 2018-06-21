@@ -10,11 +10,11 @@ class PageController extends Controller
             return view('welcome');
         }
 
-        if ((is_front_page() && is_home()) || is_home()) {
-            return app()->call([app(PostController::class), 'handle']);
-        }
+        if (is_front_page() || is_home()) {
+            if (is_home()) {
+                return app()->call([app(PostController::class), 'handle']);
+            }
 
-        if (is_front_page()) {
             return view('welcome');
         }
 
