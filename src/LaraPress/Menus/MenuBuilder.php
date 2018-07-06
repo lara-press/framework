@@ -8,6 +8,10 @@ class MenuBuilder
     protected $menuItems;
     protected $activePostId = false;
 
+    /**
+     * @param $menuId
+     * @return MenuItem[]
+     */
     public function find($menuId)
     {
         if (app()->isShared('post')) {
@@ -31,7 +35,7 @@ class MenuBuilder
     protected function getTopLevelMenuItems()
     {
         return array_where($this->menuItems, function ($menuItem) {
-            return ! $menuItem->menu_item_parent;
+            return !$menuItem->menu_item_parent;
         });
     }
 
@@ -46,7 +50,7 @@ class MenuBuilder
     {
         $menuLocations = get_nav_menu_locations();
 
-        if ( ! array_has($menuLocations, $menuId)) {
+        if (!array_has($menuLocations, $menuId)) {
             return []; // id must be registered and then assigned a menu in WordPress.
         }
 
