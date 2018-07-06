@@ -56,6 +56,7 @@ class PublishServiceProvider extends ServiceProvider
                 'wp-config.php',
                 'index.php',
                 'content/mu-plugins/larapress.php',
+                'content/plugins/.gitkeep',
                 'content/themes/larapress/index.php',
                 'content/themes/larapress/screenshot.png',
                 'content/themes/larapress/style.css',
