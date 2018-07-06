@@ -32,9 +32,5 @@ class ViewServiceProvider extends BaseViewServiceProvider
                 }
             }
         });
-
-        filters()->listen('wp_title_parts', function ($titleParts) {
-            return is_404() ? [trans('page-titles.' . ($this->app['router']->currentRouteName() ?: '404'))] : $titleParts;
-        });
     }
 }
