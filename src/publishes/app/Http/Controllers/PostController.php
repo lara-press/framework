@@ -31,8 +31,7 @@ class PostController extends Controller
 
         if ($paginator) {
             return view('welcome', [
-                'posts'      => $paginator->items(),
-                'pagination' => $paginator->render(),
+                'posts' => $paginator->items(),
             ]);
         }
 
