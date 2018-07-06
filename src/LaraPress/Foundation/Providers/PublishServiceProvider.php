@@ -17,6 +17,7 @@ class PublishServiceProvider extends ServiceProvider
             $this->prepareFiles([
                 'Events/Event.php',
                 'Repositories/Repository.php',
+                'Repositories/PostRepository.php',
                 'Http/Controllers/AdminController.php',
                 'Http/Requests/Request.php',
                 'Providers/AdminPageServiceProvider.php',
@@ -36,6 +37,9 @@ class PublishServiceProvider extends ServiceProvider
         $base = array_merge(
             $this->prepareFiles([
                 'Http/Kernel.php',
+                'Http/Controllers/Controller.php',
+                'Http/Controllers/PostController.php',
+                'Http/Controllers/PageController.php',
                 'Http/Controllers/Controller.php',
                 'Providers/PostTypeServiceProvider.php',
                 'Page.php',
@@ -60,11 +64,12 @@ class PublishServiceProvider extends ServiceProvider
             $this->prepareFiles([
                 'views/welcome.blade.php',
             ], 'resources', 'resource_path'), [
-            $this->publishesDirectory . '/artisan' => app_path('../artisan'),
-            $this->publishesDirectory . '/bootstrap/app.php' => app_path('../bootstrap/app.php'),
-            $this->publishesDirectory . '/routes/web.php'    => app_path('../routes/web.php'),
+            $this->publishesDirectory . '/.gitignore'        => base_path('.gitignore'),
+            $this->publishesDirectory . '/artisan'           => base_path('artisan'),
+            $this->publishesDirectory . '/bootstrap/app.php' => base_path('bootstrap/app.php'),
+            $this->publishesDirectory . '/routes/web.php'    => base_path('routes/web.php'),
             $this->publishesDirectory . '/laravel-tests/CreatesApplication.php'
-                                                             => app_path('../tests/CreatesApplication.php'),
+                                                             => base_path('tests/CreatesApplication.php'),
         ]);
 
         $this->publishes(array_merge($base, $optional), 'larapress');
