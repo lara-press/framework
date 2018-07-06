@@ -2,6 +2,7 @@
 
 namespace LaraPress\Posts;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use LaraPress\Admin\Column;
@@ -117,14 +118,14 @@ class Post extends Eloquent
 
     public function getField($fieldId, $format = true)
     {
-        if ( ! function_exists('acf_is_field_key')) {
+        if (!function_exists('acf_is_field_key')) {
             throw new \Exception('Advanced Custom Fields must be installed to use ' . __METHOD__);
         }
 
-        $value   = maybe_unserialize($this->getMeta($fieldId));
+        $value = maybe_unserialize($this->getMeta($fieldId));
         $fieldId = $this->getMeta('_' . $fieldId);
 
-        if ( ! acf_is_field_key($fieldId)) {
+        if (!acf_is_field_key($fieldId)) {
             return null;
         }
 
@@ -205,9 +206,9 @@ class Post extends Eloquent
      * - `html` If true, HTML tags would be handled correctly
      *
      * @param integer $length Length of returned string, including ellipsis.
-     * @param bool    $html
-     * @param bool    $exact
-     * @param string  $ending
+     * @param bool $html
+     * @param bool $exact
+     * @param string $ending
      *
      * @return string Trimmed string.
      * @link     http://book.cakephp.org/view/1469/Text#truncate-1625
@@ -223,17 +224,19 @@ class Post extends Eloquent
             }
 
             $totalLength = mb_strlen(strip_tags($ending));
-            $truncate    = '';
+            $truncate = '';
 
             preg_match_all('/(<\/?([\w+]+)[^>]*>)?([^<>]*)/', $text, $tags, PREG_SET_ORDER);
             foreach ($tags as $tag) {
-                if ( ! preg_match('/img|br|input|hr|area|base|basefont|col|frame|isindex|link|meta|param/s', $tag[2])) {
+                if (!preg_match('/img|br|input|hr|area|base|basefont|col|frame|isindex|link|meta|param/s', $tag[2])) {
                     if (preg_match('/<[\w]+[^>]*>/s', $tag[0])) {
                         array_unshift($openTags, $tag[2]);
-                    } else if (preg_match('/<\/([\w]+)[^>]*>/s', $tag[0], $closeTag)) {
-                        $pos = array_search($closeTag[1], $openTags);
-                        if ($pos !== false) {
-                            array_splice($openTags, $pos, 1);
+                    } else {
+                        if (preg_match('/<\/([\w]+)[^>]*>/s', $tag[0], $closeTag)) {
+                            $pos = array_search($closeTag[1], $openTags);
+                            if ($pos !== false) {
+                                array_splice($openTags, $pos, 1);
+                            }
                         }
                     }
                 }
@@ -242,7 +245,7 @@ class Post extends Eloquent
                 $contentLength =
                     mb_strlen(preg_replace('/&[0-9a-z]{2,8};|&#[0-9]{1,7};|&#x[0-9a-f]{1,6};/i', ' ', $tag[3]));
                 if ($contentLength + $totalLength > $length) {
-                    $left           = $length - $totalLength;
+                    $left = $length - $totalLength;
                     $entitiesLength = 0;
                     if (preg_match_all(
                         '/&[0-9a-z]{2,8};|&#[0-9]{1,7};|&#x[0-9a-f]{1,6};/i',
@@ -278,15 +281,15 @@ class Post extends Eloquent
             }
         }
 
-        if ( ! $exact) {
+        if (!$exact) {
             $spacepos = mb_strrpos($truncate, ' ');
             if (isset($spacepos)) {
                 if ($html) {
                     $bits = mb_substr($truncate, $spacepos);
                     preg_match_all('/<\/([a-z]+)>/', $bits, $droppedTags, PREG_SET_ORDER);
-                    if ( ! empty($droppedTags)) {
+                    if (!empty($droppedTags)) {
                         foreach ($droppedTags as $closingTag) {
-                            if ( ! in_array($closingTag[1], $openTags)) {
+                            if (!in_array($closingTag[1], $openTags)) {
                                 array_unshift($openTags, $closingTag[1]);
                             }
                         }
@@ -333,6 +336,13 @@ class Post extends Eloquent
     public function getTemplateAttribute()
     {
         return get_page_template_slug($this->ID);
+    }
+
+    public function getCategoriesByTaxonomy($taxonomy)
+    {
+        return $this->terms()->whereHas('taxonomies', function (Builder $query) use ($taxonomy) {
+            $query->where('taxonomy', $taxonomy);
+        })->get();
     }
 
     public function scopeWhereMeta(Builder $query, $key, $value = null, $operator = '=')
