@@ -70,6 +70,7 @@
                 flex-direction: column;
                 align-items: center;
             }
+
             ul.nav li {
                 margin-bottom: 1rem;
             }
@@ -83,14 +84,22 @@
 <body>
 <main>
 
-    <img class="logo" src="{{ larapress_assets('images/larapress.png') }}" alt="LaraPress">
+    @if(is_home() || is_front_page())
+        <img class="logo" src="{{ larapress_assets('images/larapress.png') }}" alt="LaraPress">
 
-    <h3 class="tag-line">Develop with the popularity of WordPress and the power of Laravel</h3>
+        <h3 class="tag-line">Develop with the popularity of WordPress and the power of Laravel</h3>
 
-    <ul class="nav">
-        <li><a href="https://github.com/lara-press/docs" target="_blank">Documentation</a></li>
-        <li><a href="https://github.com/lara-press/framework" target="_blank">GitHub</a></li>
-    </ul>
+        <ul class="nav">
+            <li><a href="https://github.com/lara-press/docs" target="_blank">Documentation</a></li>
+            <li><a href="https://github.com/lara-press/framework" target="_blank">GitHub</a></li>
+        </ul>
+    @elseif(is_single() || is_page())
+        {{ post()->post_title }}
+    @elseif(is_category() || is_archive())
+        {{ get_the_archive_title() }}
+    @elseif(is_search())
+        Search: {{ request('s') }}
+    @endif
 
 </main>
 
