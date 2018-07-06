@@ -21,7 +21,7 @@ class PostRepository extends Repository
 
     public function paginateByCategory($category)
     {
-        return $this->newQuery()
+        return $this->newPostQuery()
             ->whereHas('terms', function (Builder $query) use ($category) {
                 $query->where('slug', $category);
             })
@@ -30,7 +30,7 @@ class PostRepository extends Repository
 
     public function paginateByDate($year, $month)
     {
-        return $this->newQuery()->whereYear('post_date', $year)->whereMonth('post_date', $month)
+        return $this->newPostQuery()->whereYear('post_date', $year)->whereMonth('post_date', $month)
             ->paginate(get_posts_per_page());
     }
 
