@@ -28,10 +28,19 @@ class PostRepository extends Repository
             ->paginate(get_posts_per_page());
     }
 
-    public function paginateByDate($year, $month = null)
+    public function paginateByDate($year, $month = null, $day = null)
     {
-        return $this->newPostQuery()->whereYear('post_date', $year)->whereMonth('post_date', $month)
-            ->paginate(get_posts_per_page());
+        $query = $this->newPostQuery()->whereYear('post_date', $year);
+
+        if ($month) {
+            $query->whereMonth('post_date', $month);
+        }
+
+        if ($day) {
+            $query->whereDay('post_date', $day);
+        }
+
+        return $query->paginate(get_posts_per_page());
     }
 
     public function newPostQuery()

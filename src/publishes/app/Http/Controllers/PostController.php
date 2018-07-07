@@ -17,7 +17,8 @@ class PostController extends Controller
         } elseif (is_archive()) {
             $paginator = $this->posts->paginateByDate(
                 array_get(wp_query()->query, 'year'),
-                array_get(wp_query()->query, 'monthnum')
+                array_get(wp_query()->query, 'monthnum'),
+                array_get(wp_query()->query, 'day')
             );
         } elseif (is_home()) {
             $paginator = $this->posts->paginate();
