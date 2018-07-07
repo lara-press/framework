@@ -95,6 +95,13 @@
         </ul>
     @elseif(is_single() || is_page())
         {{ post()->post_title }}
+        <div>
+            @if(post_password_required())
+                {!! get_the_password_form() !!}
+            @else
+                {!! post()->post_content !!}
+            @endif
+        </div>
     @elseif(is_category() || is_archive())
         {{ get_the_archive_title() }}
     @elseif(is_search())
