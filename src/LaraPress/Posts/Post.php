@@ -118,29 +118,11 @@ class Post extends Eloquent
 
     public function getField($fieldId, $format = true)
     {
-        if (!function_exists('acf_is_field_key')) {
+        if (!function_exists('get_field')) {
             throw new \Exception('Advanced Custom Fields must be installed to use ' . __METHOD__);
         }
 
-        $value = maybe_unserialize($this->getMeta($fieldId));
-        $fieldId = $this->getMeta('_' . $fieldId);
-
-        if (!acf_is_field_key($fieldId)) {
-            return null;
-        }
-
-        $field = get_field_object($fieldId, $this->ID, false, false);
-
-        $value = apply_filters("acf/load_value", $value, $this->ID, $field);
-        $value = apply_filters("acf/load_value/type={$field['type']}", $value, $this->ID, $field);
-        $value = apply_filters("acf/load_value/name={$field['name']}", $value, $this->ID, $field);
-        $value = apply_filters("acf/load_value/key={$field['key']}", $value, $this->ID, $field);
-
-        if ($format) {
-            $value = acf_format_value($value, $this->ID, $field);
-        }
-
-        return $value;
+        return get_field($fieldId, $this->ID, $format);
     }
 
     /**
