@@ -6,6 +6,8 @@ use Illuminate\Support\ServiceProvider;
 
 class ShortcodeServiceProvider extends ServiceProvider
 {
+    protected $shortcodeViewFolder = 'shortcodes';
+
     protected $shortcodes = [];
 
     protected $dynamicShortcodes = [];
@@ -29,7 +31,7 @@ class ShortcodeServiceProvider extends ServiceProvider
                 return $this->{$this->makeRenderMethodName($shortcode)}($attributes);
             }
 
-            $view = 'shortcodes.' . $shortcode;
+            $view = $this->shortcodeViewFolder . '.' . $shortcode;
 
             if (view()->exists($view)) {
                 return view($view)->with([
