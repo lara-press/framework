@@ -32,6 +32,8 @@ class PostServiceProvider extends ServiceProvider {
             'wp',
             function ()
             {
+                $query = $GLOBALS['wp_query'];
+                $query->set('fields', null);
                 $this->app->instance('query', $query = Query::newInstanceFromWordPressQuery($GLOBALS['wp_query']));
                 $this->app->instance('loop', new Loop($query->get_posts()));
             }
