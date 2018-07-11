@@ -34,7 +34,7 @@ class ShortcodeServiceProvider extends ServiceProvider
             $shortcode instanceof SimpleShortcode ? $shortcode->shortcode() : $shortcode,
             function ($attributes, $content = null) use ($shortcode) {
                 if ($shortcode instanceof SimpleShortcode) {
-                    return $shortcode->render();
+                    return $shortcode->render($attributes, $content);
                 }
 
                 if ($this->hasRenderMethod($shortcode)) {

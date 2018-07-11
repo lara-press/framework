@@ -6,5 +6,5 @@ interface SimpleShortcode
 {
     public function shortcode();
 
-    public function render();
+    public function render($attributes, $content);
 }
