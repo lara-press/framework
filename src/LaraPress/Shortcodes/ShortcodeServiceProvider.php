@@ -28,31 +28,30 @@ class ShortcodeServiceProvider extends ServiceProvider
     {
         if (class_exists($shortcode)) {
             $shortcode = app($shortcode);
+            add_shortcode($shortcode->shortcode(), function ($attributes, $content = '') use ($shortcode) {
+                return $shortcode->render($attributes, $content);
+            });
+
+            return;
         }
 
-        add_shortcode(
-            $shortcode instanceof SimpleShortcode ? $shortcode->shortcode() : $shortcode,
-            function ($attributes, $content = null) use ($shortcode) {
-                if ($shortcode instanceof SimpleShortcode) {
-                    return $shortcode->render($attributes, $content);
-                }
+        add_shortcode($shortcode, function ($attributes, $content = '') use ($shortcode) {
 
-                if ($this->hasRenderMethod($shortcode)) {
-                    return $this->{$this->makeRenderMethodName($shortcode)}($attributes);
-                }
-
-                $view = $this->shortcodeViewFolder . '.' . $shortcode;
-
-                if (view()->exists($view)) {
-                    return view($view)->with([
-                        'attributes' => $attributes,
-                        'content'    => $content,
-                    ]);
-                }
-
-                return '[' . $shortcode . ']';
+            if ($this->hasRenderMethod($shortcode)) {
+                return $this->{$this->makeRenderMethodName($shortcode)}($attributes);
             }
-        );
+
+            $view = $this->shortcodeViewFolder . '.' . $shortcode;
+
+            if (view()->exists($view)) {
+                return view($view)->with([
+                    'attributes' => $attributes,
+                    'content'    => $content,
+                ]);
+            }
+
+            return '[' . $shortcode . ']';
+        });
     }
 
     protected function registerDynamicShortcodes(DynamicShortcode $dynamicShortcode)
