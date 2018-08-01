@@ -15,7 +15,11 @@ class PostServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app['actions']->listen('wp', function () {
-            $wpPost = is_home() ? get_post(get_queried_object_id()) : get_post(); // for post archive get post page instead of first post
+            $wpPost = get_post(
+                (is_home() && is_archive()) && !is_post_type_archive() ?
+                    get_option('page_for_posts') :
+                    null
+            ); // for post archive get post page instead of first post
 
             if ($wpPost !== null && $post = Post::resolveWordPressPostToModel($wpPost)) {
                 $this->app->instance('post', $post);
