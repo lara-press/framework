@@ -26,7 +26,18 @@ class ShortcodeServiceProvider extends ServiceProvider
 
     protected function registerShortcodes($shortcode)
     {
-        add_shortcode($shortcode, function ($attributes, $content = null) use ($shortcode) {
+        if (class_exists($shortcode)) {
+            /** @var SimpleShortcode $shortcode */
+            $shortcode = app($shortcode);
+            add_shortcode($shortcode->shortcode(), function ($attributes, $content = '') use ($shortcode) {
+                return $shortcode->render($attributes, $content);
+            });
+
+            return;
+        }
+
+        add_shortcode($shortcode, function ($attributes, $content = '') use ($shortcode) {
+
             if ($this->hasRenderMethod($shortcode)) {
                 return $this->{$this->makeRenderMethodName($shortcode)}($attributes);
             }
