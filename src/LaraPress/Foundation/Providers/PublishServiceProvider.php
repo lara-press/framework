@@ -15,42 +15,42 @@ class PublishServiceProvider extends ServiceProvider
 
         $optional = array_merge(
             $this->prepareFiles([
-                'Events/Event.php',
-                'Repositories/Repository.php',
-                'Repositories/PostRepository.php',
-                'Http/Controllers/AdminController.php',
-                'Http/Requests/Request.php',
-                'Providers/AdminPageServiceProvider.php',
-                'Providers/MenuServiceProvider.php',
-                'Providers/ShortcodeServiceProvider.php',
-                'Providers/SidebarServiceProvider.php',
-                'Providers/TaxonomyServiceProvider.php',
-                'Providers/ViewServiceProvider.php',
-                'Providers/WidgetServiceProvider.php',
-                'Widgets/ExampleWidget.php',
+                'Events/Event.stub',
+                'Repositories/Repository.stub',
+                'Repositories/PostRepository.stub',
+                'Http/Controllers/AdminController.stub',
+                'Http/Requests/Request.stub',
+                'Providers/AdminPageServiceProvider.stub',
+                'Providers/MenuServiceProvider.stub',
+                'Providers/ShortcodeServiceProvider.stub',
+                'Providers/SidebarServiceProvider.stub',
+                'Providers/TaxonomyServiceProvider.stub',
+                'Providers/ViewServiceProvider.stub',
+                'Providers/WidgetServiceProvider.stub',
+                'Widgets/ExampleWidget.stub',
             ], 'app', 'app_path'),
             $this->prepareFiles([
-                'views/metabox/sidebar.blade.php',
+                'views/metabox/sidebar.blade.stub',
             ], 'resources', 'resource_path')
         );
 
         $base = array_merge(
             $this->prepareFiles([
-                'Http/Kernel.php',
-                'Http/Controllers/Controller.php',
-                'Http/Controllers/PostController.php',
-                'Http/Controllers/PageController.php',
-                'Http/Controllers/Controller.php',
-                'Providers/PostTypeServiceProvider.php',
-                'Page.php',
-                'Post.php',
-                'User.php',
+                'Http/Kernel.stub',
+                'Http/Controllers/Controller.stub',
+                'Http/Controllers/PostController.stub',
+                'Http/Controllers/PageController.stub',
+                'Http/Controllers/Controller.stub',
+                'Providers/PostTypeServiceProvider.stub',
+                'Page.stub',
+                'Post.stub',
+                'User.stub',
             ], 'app', 'app_path'),
             $this->prepareFiles([
-                'app.php',
-                'mail.php',
-                'images.php',
-                'supports.php',
+                'app.stub',
+                'mail.stub',
+                'images.stub',
+                'supports.stub',
             ], 'config', 'config_path'),
             $this->prepareFiles([
                 'wp-config.php',
@@ -63,14 +63,15 @@ class PublishServiceProvider extends ServiceProvider
                 'content/themes/larapress/assets/images/larapress.png',
             ], 'public', 'public_path'),
             $this->prepareFiles([
-                'views/welcome.blade.php',
+                'views/metabox/sidebar.blade.stub',
+                'views/welcome.blade.stub',
             ], 'resources', 'resource_path'), [
-            $this->publishesDirectory . '/.gitignore'        => base_path('.gitignore'),
-            $this->publishesDirectory . '/artisan'           => base_path('artisan'),
-            $this->publishesDirectory . '/bootstrap/app.php' => base_path('bootstrap/app.php'),
-            $this->publishesDirectory . '/routes/web.php'    => base_path('routes/web.php'),
-            $this->publishesDirectory . '/laravel-tests/CreatesApplication.php'
-                                                             => base_path('tests/CreatesApplication.php'),
+            $this->publishesDirectory . '/.gitignore'         => base_path('.gitignore'),
+            $this->publishesDirectory . '/artisan'            => base_path('artisan'),
+            $this->publishesDirectory . '/bootstrap/app.stub' => base_path('bootstrap/app.php'),
+            $this->publishesDirectory . '/routes/web.stub'    => base_path('routes/web.php'),
+            $this->publishesDirectory . '/laravel-tests/CreatesApplication.stub'
+                                                              => base_path('tests/CreatesApplication.php'),
         ]);
 
         $this->publishes(array_merge($base, $optional), 'larapress');
@@ -82,7 +83,7 @@ class PublishServiceProvider extends ServiceProvider
 
         foreach ($files as &$file) {
             $vendorFile = $this->publishesDirectory . '/' . $projectFolder . '/' . $file;
-            $preparedFiles[$vendorFile] = $pathFunction($file);
+            $preparedFiles[$vendorFile] = str_replace('.stub', '.php', $pathFunction($file));
         }
 
         return $preparedFiles;
