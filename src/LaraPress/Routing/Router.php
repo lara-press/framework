@@ -57,7 +57,7 @@ class Router extends RouterBase
      *
      * @return Route
      */
-    protected function addRoute($methods, $uri, $action)
+    public function addRoute($methods, $uri, $action)
     {
         return parent::addRoute($methods, $uri, $action);
     }
