@@ -16,6 +16,7 @@ define('ABSPATH', __DIR__ . '/cms/');
 |
 */
 
+require __DIR__ . '/cms/wp-includes/l10n.php';
 require __DIR__ . '/../vendor/autoload.php';
 
 $_GLOBAL['__request'] = Illuminate\Http\Request::capture();

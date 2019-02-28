@@ -3,13 +3,16 @@
 
 define('LARAVEL_START', microtime(true));
 
+require __DIR__ . '/vendor/lara-press/framework/src/LaraPress/Foundation/noop.php';
+require __DIR__ . '/vendor/autoload.php';
+
 // WordPress requirement
-if(file_exists(__DIR__ . '/public/cms/wp-blog-header.php')) {
+if (file_exists(__DIR__ . '/public/cms/wp-blog-header.php')) {
     /* Wordpress :( */
     $_SERVER['SERVER_PROTOCOL'] = null;
     $_SERVER['REQUEST_METHOD'] = null;
     $_SERVER['HTTP_HOST'] = null;
-    require(__DIR__ . '/public/cms/wp-blog-header.php');
+    require(__DIR__ . '/public/content/mu-plugins/larapress.php');
 } else {
     echo 'WordPress not installed. Was the "johnpbloch/wordpress" package or `public/cms` folder removed?' . PHP_EOL;
     return;
