@@ -29,14 +29,14 @@ class ShortcodeServiceProvider extends ServiceProvider
         if (class_exists($shortcode)) {
             /** @var SimpleShortcode $shortcode */
             $shortcode = app($shortcode);
-            add_shortcode($shortcode->shortcode(), function ($attributes, $content = '') use ($shortcode) {
+            $this->addShortcode($shortcode->shortcode(), function ($attributes, $content = '') use ($shortcode) {
                 return $shortcode->render($attributes, $content);
             });
 
             return;
         }
 
-        add_shortcode($shortcode, function ($attributes, $content = '') use ($shortcode) {
+        $this->addShortcode($shortcode, function ($attributes, $content = '') use ($shortcode) {
 
             if ($this->hasRenderMethod($shortcode)) {
                 return $this->{$this->makeRenderMethodName($shortcode)}($attributes);
@@ -58,7 +58,7 @@ class ShortcodeServiceProvider extends ServiceProvider
     protected function registerDynamicShortcodes(DynamicShortcode $dynamicShortcode)
     {
         foreach ($dynamicShortcode->shortcodes() as $shortcode) {
-            add_shortcode(
+            $this->addShortcode(
                 $shortcode->shortcode,
                 function ($attributes, $content = '') use ($dynamicShortcode, $shortcode) {
                     return $dynamicShortcode->render(
@@ -77,5 +77,12 @@ class ShortcodeServiceProvider extends ServiceProvider
     protected function makeRenderMethodName($shortcode)
     {
         return camel_case($shortcode) . 'Shortcode';
+    }
+
+    protected function addShortcode($shortcode, \Closure $callback)
+    {
+        add_shortcode($shortcode, function ($attributes, $content = '') use ($callback) {
+            return $callback($attributes === '' ? [] : $attributes, $content);
+        });
     }
 }
