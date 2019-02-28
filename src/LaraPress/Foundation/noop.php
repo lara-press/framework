@@ -12,12 +12,6 @@ if (!function_exists('register_nav_menus')) {
     }
 }
 
-if (!function_exists('__')) {
-    function __()
-    {
-    }
-}
-
 if (!function_exists('add_filter')) {
     function add_filter()
     {
