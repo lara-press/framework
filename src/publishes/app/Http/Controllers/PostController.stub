@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\PostRepository;
+use Illuminate\Support\Arr;
 
 class PostController extends Controller
 {
@@ -25,9 +26,9 @@ class PostController extends Controller
             $paginator = $this->posts->paginateByCategory(get_queried_object()->slug);
         } elseif (is_archive()) {
             $paginator = $this->posts->paginateByDate(
-                array_get(wp_query()->query, 'year'),
-                array_get(wp_query()->query, 'monthnum'),
-                array_get(wp_query()->query, 'day')
+                Arr::get(wp_query()->query, 'year'),
+                Arr::get(wp_query()->query, 'monthnum'),
+                Arr::get(wp_query()->query, 'day')
             );
         } elseif (is_home()) {
             $paginator = $this->posts->paginate();

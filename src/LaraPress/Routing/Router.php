@@ -8,6 +8,7 @@ use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Router as RouterBase;
 use LaraPress\Actions\Dispatcher as ActionsDispatcher;
+use Illuminate\Support\Arr;
 
 class Router extends RouterBase
 {
@@ -115,7 +116,7 @@ class Router extends RouterBase
 
             if (is_null($response)) {
 
-                $this->current = $route = array_first($this->getRoutes(), function ($i, Route $route) use ($request) {
+                $this->current = $route = Arr::first($this->getRoutes(), function ($i, Route $route) use ($request) {
                     return $route->matches($request, true);
                 });
 
@@ -229,7 +230,7 @@ class Router extends RouterBase
     {
         $url = $this->parseAdminUri($uri);
 
-        $adminPage = array_get($action, 'parent_slug') ?: 'admin.php';
+        $adminPage = Arr::get($action, 'parent_slug') ?: 'admin.php';
 
         $route = $this->addRoute($methods, 'cms/wp-admin/' . $adminPage . $url, $action);
 

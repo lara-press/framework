@@ -5,6 +5,7 @@ namespace LaraPress\MetaBox;
 use Illuminate\Contracts\Foundation\Application;
 use LaraPress\Actions\Dispatcher;
 use LaraPress\Posts\Post;
+use Illuminate\Support\Arr;
 
 class Manager
 {
@@ -63,7 +64,7 @@ class Manager
 
         if (is_callable($metaBox->getInputHandler())) {
             $this->actions->listen('save_post', function ($postId, $post, $isUpdate) use ($metaBox, $app) {
-                if (!in_array(get_post_type($postId), array_wrap($metaBox->getPostType())) || defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+                if (!in_array(get_post_type($postId), Arr::wrap($metaBox->getPostType())) || defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
                     return;
                 }
                 $post = Post::resolveWordPressPostToModel($post);

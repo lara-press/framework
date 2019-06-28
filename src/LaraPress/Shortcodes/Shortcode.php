@@ -2,6 +2,8 @@
 
 namespace LaraPress\Shortcodes;
 
+use Illuminate\Support\Arr;
+
 class Shortcode
 {
     public $shortcode;
@@ -17,7 +19,7 @@ class Shortcode
 
     public function getAttribute($attribute)
     {
-        return array_get($this->attributes, $attribute);
+        return Arr::get($this->attributes, $attribute);
     }
 
     /**

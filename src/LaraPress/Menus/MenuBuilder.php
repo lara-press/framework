@@ -2,6 +2,8 @@
 
 namespace LaraPress\Menus;
 
+use Illuminate\Support\Arr;
+
 class MenuBuilder
 {
 
@@ -34,14 +36,14 @@ class MenuBuilder
 
     protected function getTopLevelMenuItems()
     {
-        return array_where($this->menuItems, function ($menuItem) {
+        return Arr::where($this->menuItems, function ($menuItem) {
             return !$menuItem->menu_item_parent;
         });
     }
 
     protected function getChildMenuItems($parentId)
     {
-        return array_where($this->menuItems, function ($menuItem) use ($parentId) {
+        return Arr::where($this->menuItems, function ($menuItem) use ($parentId) {
             return intval($menuItem->menu_item_parent) === $parentId;
         });
     }
@@ -50,7 +52,7 @@ class MenuBuilder
     {
         $menuLocations = get_nav_menu_locations();
 
-        if (!array_has($menuLocations, $menuId)) {
+        if (!Arr::has($menuLocations, $menuId)) {
             return []; // id must be registered and then assigned a menu in WordPress.
         }
 
