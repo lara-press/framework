@@ -2,6 +2,7 @@
 
 namespace LaraPress\Posts;
 
+use Illuminate\Support\Str;
 use LaraPress\Actions\Dispatcher;
 use LaraPress\Contracts\Taxonomies\CustomTaxonomy;
 
@@ -47,7 +48,7 @@ class TaxonomyManager
 
     protected function makeCustomTaxonomy(CustomTaxonomy $model)
     {
-        $taxonomySlug = strtolower(snake_case(class_basename($model)));
+        $taxonomySlug = strtolower(Str::snake(class_basename($model)));
 
         $singular =
             property_exists($model, 'singular') ? $model->singular : str_replace(['-', '_'], ' ', $taxonomySlug);

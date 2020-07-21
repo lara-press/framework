@@ -3,6 +3,7 @@
 namespace LaraPress\Sidebars;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
 
 class SidebarServiceProvider extends ServiceProvider {
 
@@ -46,7 +47,7 @@ class SidebarServiceProvider extends ServiceProvider {
 
         if (empty($sidebar['id']))
         {
-            $sidebar['id'] = snake_case(preg_replace('/[^a-zA-Z0-9]/', '-', $sidebar['name']));
+            $sidebar['id'] = Str::snake(preg_replace('/[^a-zA-Z0-9]/', '-', $sidebar['name']));
         }
 
         return $sidebar;

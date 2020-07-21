@@ -5,6 +5,7 @@ namespace LaraPress\Posts;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\Scope;
+use Illuminate\Support\Str;
 
 class PostTypeScope implements Scope {
 
@@ -18,7 +19,7 @@ class PostTypeScope implements Scope {
      */
     public function apply(Builder $builder, Eloquent $model)
     {
-        $builder->where('post_type', strtolower(snake_case(class_basename($model))));
+        $builder->where('post_type', strtolower(Str::snake(class_basename($model))));
     }
 
     /**

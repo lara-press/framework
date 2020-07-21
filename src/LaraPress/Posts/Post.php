@@ -5,6 +5,7 @@ namespace LaraPress\Posts;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model as Eloquent;
+use Illuminate\Support\Str;
 use LaraPress\Admin\Column;
 
 class Post extends Eloquent
@@ -51,7 +52,7 @@ class Post extends Eloquent
 
     public static function getCustomPostTypeSlug()
     {
-        return strtolower(snake_case(class_basename(static::class)));
+        return strtolower(Str::snake(class_basename(static::class)));
     }
 
     /**
