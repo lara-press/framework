@@ -2,6 +2,7 @@
 
 namespace LaraPress\Shortcodes;
 
+use Illuminate\Support\Str;
 use Illuminate\Support\ServiceProvider;
 
 class ShortcodeServiceProvider extends ServiceProvider
@@ -76,7 +77,7 @@ class ShortcodeServiceProvider extends ServiceProvider
 
     protected function makeRenderMethodName($shortcode)
     {
-        return camel_case($shortcode) . 'Shortcode';
+        return Str::camel($shortcode) . 'Shortcode';
     }
 
     protected function addShortcode($shortcode, \Closure $callback)
