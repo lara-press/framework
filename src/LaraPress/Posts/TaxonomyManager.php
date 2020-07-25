@@ -55,7 +55,7 @@ class TaxonomyManager
 
         $plural = property_exists($model, 'plural')
             ? $model->plural
-            : str_plural(
+            : Str::plural(
                 str_replace(['-', '_'], ' ', $taxonomySlug)
             );
 
@@ -86,7 +86,7 @@ class TaxonomyManager
         }
 
         if (empty($plural)) {
-            $plural = str_plural($singular);
+            $plural = Str::plural($singular);
         }
 
         register_taxonomy($slug, $postTypes, $this->getDefaultParams($singular, $plural, $params));

@@ -2,6 +2,7 @@
 
 namespace LaraPress\Posts;
 
+use Illuminate\Support\Str;
 use LaraPress\Actions\Dispatcher;
 use LaraPress\Contracts\Posts\CustomPostType;
 use LaraPress\Contracts\Posts\PostTypeManager as PostTypeManagerContract;
@@ -57,7 +58,7 @@ class PostTypeManager implements PostTypeManagerContract
 
             $plural = property_exists($model, 'plural')
                 ? $model->plural
-                : str_plural(
+                : Str::plural(
                     str_replace(['-', '_'], ' ', $postTypeSlug)
                 );
 
