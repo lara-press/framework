@@ -21,7 +21,7 @@ require __DIR__ . '/../vendor/autoload.php';
 $_GLOBAL['__request'] = Illuminate\Http\Request::capture();
 
 try {
-    (new Dotenv\Dotenv(dirname(__DIR__)))->load();
+    Dotenv\Dotenv::createImmutable(dirname(__DIR__))->load();
 } catch (\InvalidArgumentException $e) {
     // we probably don't have an .env file yet
 }
