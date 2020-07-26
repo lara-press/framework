@@ -179,8 +179,6 @@ class Router extends RouterBase
 
         remove_menu_page($slug);
 
-        set_current_screen($slug);
-
         if (count($uri) == 0 && !$parentSlug) {
             add_menu_page($pageTitle, $menuTitle, $capability, $slug, $response, $icon, $position);
         } else {
