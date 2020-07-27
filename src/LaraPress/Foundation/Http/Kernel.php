@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\Facade;
+use LaraPress\Routing\Matching\UriValidator;
 use Symfony\Component\Debug\Exception\FatalThrowableError;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
@@ -73,7 +74,11 @@ class Kernel extends HttpKernel
         } catch (Exception $e) {
 
             if (is_admin() && $e instanceof NotFoundHttpException) {
-                $response = null;
+                $e = new \Exception(sprintf(
+                    'The LaraPress router could not find this route. Admin routes are matched with the %s class.',
+                    UriValidator::class
+                ));
+                $response = $this->renderException($request, $e);
             } else {
                 $this->reportException($e);
                 $response = $this->renderException($request, $e);
