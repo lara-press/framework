@@ -194,7 +194,7 @@ class Router extends RouterBase
      * @param  mixed  $action
      * @return Route
      */
-    protected function newRoute($methods, $uri, $action)
+    public function newRoute($methods, $uri, $action)
     {
         return (new Route($methods, $uri, $action))
             ->setRouter($this)
